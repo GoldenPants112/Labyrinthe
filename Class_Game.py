@@ -1,5 +1,6 @@
 import pygame
 
+
 #Creation de la premiere fentre
 pygame.init()
 
