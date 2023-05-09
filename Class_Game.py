@@ -10,9 +10,20 @@ pixelSize = (800,600)
 screen = pygame.display.set_mode(pixelSize)
 
 running = True
+
+background_color = (255,255,255) #white
+
+#while running:
+    
+
+running = True
 while running:
+    # Fill the screen with the background color
+    screen.fill(background_color)
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-pygame.quit() # Quit the game
+    
+    # Update the screen
+    pygame.display.update()
