@@ -14,14 +14,14 @@ screen = pygame.display.set_mode(pixelSize)
 background_color = (0,0,0) #Black
 
 
-#extracts Rico from file
-rico = pygame.image.load("Rico.png")
+#extracts Captain_France from file
+Captain_France = pygame.image.load("Captain_France.png")
 
 # Scale the image to half its original size
-rico = pygame.transform.scale(rico, (rico.get_width() // 5, rico.get_height() // 5))
+Captain_France = pygame.transform.scale(Captain_France, (100,100))
 
 # Get the dimensions of the image
-rico_width, rico_height = rico.get_size()
+Captain_France_width, Captain_France_height = Captain_France.get_size()
 
 
 running = True
@@ -39,15 +39,16 @@ while running:
     
 
     # Calculate the position of the image in the center of the screen
-    x = (pixelSize[0] - rico_width) // 2 #ordonne
-    y = (pixelSize[1] - rico_height) // 2 #abscisse
+    x = (pixelSize[0] - Captain_France_width) // 2 #ordonne
+    y = (pixelSize[1] - Captain_France_height) // 2 #abscisse
 
     # Draw the image on the screen
-    screen.blit(rico, (x, y))
+    screen.blit(Captain_France, (x, y))
 
     # Update the screen
     pygame.display.update()
 
-
-
+    
+# Quit Pygame
+pygame.quit()
     
