@@ -3,16 +3,14 @@ import Class_Room
 import pygame
 
 class Tiles:
-    position=[0.0]
     type=0
-    def __init__(self,_position,_type):
-        self.position=_position
+    def __init__(self,_type):
         self.type=_type
     
     def __repr__(self,_tailleSalle):
-        Taille_écran = Class_Game.pixelSize[0]
+        Taille_ecran = Class_Game.pixelSize[0]
         
-        # à changer pour des images en utilisant la fonction :
+        # changer les rectangles de coouleurs pour des images ("textures") en utilisant la fonction :
         #                 - pygame.image.load("nom image") pour charger l'image (sûrement pas içi)
         #                 - screen.blit("nom image",(x,y) ) içi la taille sera la résolution totale divisé par la taille de la salle en question.
 
