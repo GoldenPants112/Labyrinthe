@@ -16,7 +16,6 @@ background_color = (0,0,0) #Black
 
 #extracts Captain_France from file
 Captain_France = pygame.image.load("Captain_France.png")
-
 # Scale the image to half its original size
 Captain_France = pygame.transform.scale(Captain_France, (100,100))
 
