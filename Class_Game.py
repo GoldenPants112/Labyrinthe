@@ -19,7 +19,15 @@ Captain_France = pygame.image.load("Captain_France.png")
 # Scale the image to half its original size
 Captain_France = pygame.transform.scale(Captain_France, (100,100))
 
-# Get the dimensions of the image
+
+#extracts Captain_France from file
+background_image = pygame.image.load("Dungeon_Texture.jpg")
+background_image = pygame.transform.scale(background_image, (300,150))
+
+# Get the dimensions of the background image
+background_image_width, background_image_height = background_image.get_size()
+
+# Get the dimensions of the Captain
 Captain_France_width, Captain_France_height = Captain_France.get_size()
 
 #cordonne du caractere
@@ -29,7 +37,7 @@ Captain_France_y=(pixelSize[1] - Captain_France_height) // 2
 running = True
 
 #spped of the caracter
-Captain_France_speed = 5
+Captain_France_speed = 40
 
 # Movement flags
 move_up = False
@@ -39,7 +47,7 @@ move_right = False
 
 # Set the maximum frame rate
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 5
 
 while running:
     #if X is pressed then close the window
@@ -70,20 +78,24 @@ while running:
                 move_right = False
 
     # Update character position based on movement flags
-    if move_up:
+    if move_up and Captain_France_y > 0:
         Captain_France_y -= Captain_France_speed
-    if move_left:
+    if move_left and Captain_France_x > 0:
         Captain_France_x -= Captain_France_speed
-    if move_down:
+    if move_down and Captain_France_y < pixelSize[1] - Captain_France_height:
         Captain_France_y += Captain_France_speed
-    if move_right:
+    if move_right and Captain_France_x < pixelSize[0] - Captain_France_width:
         Captain_France_x += Captain_France_speed
 
 
 
+
     # Fill the screen with the background color
-    screen.fill(background_color)
-    
+    #screen.fill(background_color)
+
+    # Draw the background on the screen
+
+    screen.blit(background_image,(0,0))
     
     # Draw the image on the screen
     screen.blit(Captain_France, (Captain_France_x, Captain_France_y))
