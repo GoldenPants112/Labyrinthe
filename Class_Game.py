@@ -30,33 +30,55 @@ Captain_France_y=(pixelSize[1] - Captain_France_height) // 2
 running = True
 
 #spped of the caracter
-Captain_France_speed = 50
+Captain_France_speed = 5
 
+# Movement flags
+move_up = False
+move_down = False
+move_left = False
+move_right = False
 
 # Set the maximum frame rate
 clock = pygame.time.Clock()
 FPS = 60
 
 while running:
-    #if X -> close the window
+    #if X is pressed then close the window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
 
-    # Handle keyboard events
+      # Handle keyboard events
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                Captain_France_y = Captain_France_y - Captain_France_speed
+                move_up = True
             elif event.key == pygame.K_a:
-              Captain_France_x = Captain_France_y - Captain_France_speed
+                move_left = True
             elif event.key == pygame.K_s:
-               Captain_France_y = Captain_France_y + Captain_France_speed
+                move_down = True
             elif event.key == pygame.K_d:
-                Captain_France_x = Captain_France_y + Captain_France_speed
+                move_right = True
 
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_w:
+                move_up = False
+            elif event.key == pygame.K_a:
+                move_left = False
+            elif event.key == pygame.K_s:
+                move_down = False
+            elif event.key == pygame.K_d:
+                move_right = False
 
-
+    # Update character position based on movement flags
+    if move_up:
+        Captain_France_y -= Captain_France_speed
+    if move_left:
+        Captain_France_x -= Captain_France_speed
+    if move_down:
+        Captain_France_y += Captain_France_speed
+    if move_right:
+        Captain_France_x += Captain_France_speed
 
 
 
@@ -64,11 +86,6 @@ while running:
     screen.fill(background_color)
     
     
-
-    # Calculate the position of the image in the center of the screen
-    #x = (pixelSize[0] - Captain_France_width) // 2 #ordonne
-    #y = (pixelSize[1] - Captain_France_height) // 2 #abscisse
-
     # Draw the image on the screen
     screen.blit(Captain_France, (Captain_France_x, Captain_France_y))
 
