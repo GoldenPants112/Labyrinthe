@@ -1,9 +1,9 @@
 import Class_Tiles
-
 class Room : 
     roomId = 0
-    map = [Class_Tiles.Tiles(),Class_Tiles.Tiles()]
+
     size = 0
+    map = [0,0] 
     
     def __init__(self,_Id,):
         self.roomId = _Id 
@@ -12,7 +12,7 @@ class Room :
         #création des tiles, avec des conditions lignes par lignes (le j)
             #Rappel : 1001 = sol // 1002 = mur // 1003 = entrée // 1004 = sortie
         
-        if (self.roomID == 1):
+        if (self.roomID == 11):
             self.size = 11
             
 
@@ -97,9 +97,7 @@ class Room :
     def getSize(self):
         return self.size
 
-    def __repr__(self,):
+    def __repr__(self):
         for j in self.size:
             for i in self.size:
-                self.map[i,j].__repr__(self.size)
-
-                
+                self.map[i,j]
