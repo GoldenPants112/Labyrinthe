@@ -1,9 +1,7 @@
 import pygame
 
-
-#Creation de la premiere fentre
+#Creation de la premiere fenetre
 pygame.init()
-
 #determination des dimentions de l'ecran
 pixelSize = (700,700)
 
