@@ -100,28 +100,15 @@ while running:
 
 
 
-    # Fill the screen with the background color
-    #screen.fill(background_color)
+    
 
     # Draw the background on the screen
 
-    screen.blit(background_image,(0,0))
-    screen.blit(background_image,(300,0))
-    screen.blit(background_image,(600,0))
-    screen.blit(background_image,(0,150))
-    screen.blit(background_image,(0,300))
-    screen.blit(background_image,(0,450))
-    screen.blit(background_image,(0,600))
-    screen.blit(background_image,(300,150))
-    screen.blit(background_image,(300,300))
-    screen.blit(background_image,(300,450))
-    screen.blit(background_image,(300,600))
-    screen.blit(background_image,(600,150))
-    screen.blit(background_image,(600,300))
-    screen.blit(background_image,(600,450))
-    screen.blit(background_image,(600,600))
-
-
+    for i in range (pixelSize[0]):
+        for j in range (pixelSize[1]):
+            if (j%150 == 0 and i%300 == 0):
+                screen.blit(background_image,(i,j))
+            
 
     
     # Draw the image on the screen if facing up is = 0
