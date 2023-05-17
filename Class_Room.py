@@ -16,8 +16,8 @@ class Room :
             self.size = 11
             
 
-            for j in self.size :
-                for i in self.size:
+            for j in range(self.size) :
+                for i in range(self.size) :
                     
                     #1ere et 11e ligne (que des murs)
                     if (j == 0 or j == 10):

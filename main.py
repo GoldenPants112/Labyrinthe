@@ -8,10 +8,14 @@ pixelSize = (700,700)
 #Creation de l'ecran
 screen = pygame.display.set_mode(pixelSize)
 
+
+background_color = (0,0,0) #Black
+
+
 #extracts Captain_France from file
 Captain_France = pygame.image.load("Captain_France.png")
 Captain_France = pygame.transform.scale(Captain_France, (100,100))
-# Get the dimensions of the image
+# Get the dimensions of the Captain
 Captain_France_width, Captain_France_height = Captain_France.get_size()
 #cordonne du CAptain
 Captain_France_x=(pixelSize[0] - Captain_France_width) // 2
@@ -34,25 +38,23 @@ Captain_France_dos_width, Captain_France_dos_height = Captain_France_dos.get_siz
 Captain_France_dos_x=(pixelSize[0] - Captain_France_dos_width) // 2
 Captain_France_dos_y=(pixelSize[1] - Captain_France_dos_height) // 2
 
+
+
+running = True
+
+#spped of the caracter
+Captain_France_speed = 40
+
 # Movement flags
 move_up = False
 move_down = False
 move_left = False
 move_right = False
 
-def startGame() :
-    running = True
-    facing_up = 0
-
-
-
-#spped of the caracter
-Captain_France_speed = 40
-
-
 # Set the maximum frame rate
 clock = pygame.time.Clock()
 FPS = 5
+facing_up=0
 
 while running:
     #if X is pressed then close the window
