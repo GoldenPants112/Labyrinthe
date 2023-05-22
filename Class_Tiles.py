@@ -1,5 +1,4 @@
 import Game  
-import Class_Room
 import pygame
 
 class Tiles:
