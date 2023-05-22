@@ -47,6 +47,7 @@ FPS = 5
 
 def startGame() :
     running = True
+    
     facing_up = 0
     facing_left=0
     facing_right=0
