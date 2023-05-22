@@ -2,8 +2,6 @@ import Class_Room
 import pygame
 import Class_Player
 
-
-
 def nextRoom(_currentRoom):
     nxt_room = _currentRoom.roomID +1
     
@@ -45,6 +43,7 @@ def startGame(_taille_ecran) :
 
 
     # set Movement flags
+
     move_up = False
     move_down = False
     move_left = False
@@ -104,6 +103,7 @@ def startGame(_taille_ecran) :
         if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 1002:
             player_1.position[1] -= player_1.speed * Size_Tile
             facing_up=1
+
         if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 1002:
             player_1.position[0] -= player_1.speed * Size_Tile
         if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 1002:
@@ -127,12 +127,19 @@ def startGame(_taille_ecran) :
     
         # Draw the image on the screen if facing up is = 0
         if (facing_up == 0):
-            screen.blit(Captain_France, (player_1.position[0], player_1.position[1]))
-        # Draw the cap's back on the screen
-        elif(facing_up == 1):
-            screen.blit(Captain_France_dos, (player_1.position[0], player_1.position[1]))
-        
+
+            player1.__repr__(Captain_France)
+        elif(facing_up == 1):# Draw the cap's back on the screen
+            player1.__repr__(Captain_France_dos)
+        elif(facing_right == 1): # Draw the Captain Frnace right on the screen
+            player1.__repr__(Captain_France_right)
+        elif(facing_left == 1): # Draw the Captain Frnace left on the screen
+            player1.__repr__(Captain_France_left)
+    
+    
         facing_up = 0
+        facing_left=0
+        facing_right=0
 
 
 
