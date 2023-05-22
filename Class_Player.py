@@ -1,4 +1,5 @@
 import Class_Tiles
+import Game
 import pygame
 
 class Player:
@@ -16,5 +17,4 @@ class Player:
         self.position = _newPos
 
     def __repr__(self,_texture):
-        screen.blit(_texture, (self.position[0], self.position[1]))
-# teste du changement
+        Game.screen.blit(_texture, (self.position[0], self.position[1]))
