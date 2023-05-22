@@ -8,12 +8,6 @@ class Player:
         self.name = _name
         self.position=_position
         self.speed = _speed
-    
-    def getPos(self):
-        return self.position
-    
-    def setPos(self,_newPos):
-        self.position = _newPos
 
     def __repr__(self,_texture):
         screen.blit(_texture, (self.position[0], self.position[1]))

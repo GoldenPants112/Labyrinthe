@@ -94,9 +94,6 @@ class Room :
                         else:
                             self.map[i,j] = Class_Tiles.Tiles.__init__(1001)    
 
-    def getSize(self):
-        return self.size
-
     def __repr__(self,):
         for j in self.size:
             for i in self.size:
