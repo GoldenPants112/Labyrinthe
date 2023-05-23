@@ -1,19 +1,19 @@
-import Class_Room
 import pygame
 import Class_Player
+import Class_Room
 
 def nextRoom(_currentRoom):
-    nxt_room = _currentRoom.roomID +1
+    nxt_room = _currentRoom.roomId +1
     
-    return Class_Room.Room.__init__(nxt_room)
-
+    return Class_Room.Room.__init__(nextRoom)
 
 def startGame(_taille_ecran) :
     running = True
     clock = pygame.time.Clock()
     FPS = 5
 
-    first_R = Class_Room.Room.__init__(1)
+    first_R = Class_Room.Room(1)
+    
     
     #check ou est l'entree et place le joueur à celle ci (init depart)
     for k in range (first_R.size) :
@@ -27,18 +27,20 @@ def startGame(_taille_ecran) :
     Size_Tile = _taille_ecran/current_R.size
 
     #set the textures    
-    Captain_France = pygame.image.load("Captain_France_dos.png")
-    Captain_France = pygame.image.load("Captain_France.png")
-    background_image = pygame.image.load("Dungeon_Texture.jpg")
+    Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
+    Captain_France = pygame.image.load("Assets/Captain_France.png")
+    background_image = pygame.image.load("Assets/Dungeon_Texture.jpg")
+    Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
+    Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
 
-    
 
-    Captain_France = pygame.transform.scale(Captain_France, ( Size_Tile, Size_Tile))
+    #scaling of the assets
+    Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( Size_Tile, Size_Tile))
     Captain_France = pygame.transform.scale(Captain_France, ( Size_Tile, Size_Tile))
     background_image = pygame.transform.scale(background_image, (Size_Tile,Size_Tile/2))
+    Captain_France_right = pygame.transform.scale(Captain_France_right, ( Size_Tile, Size_Tile))
+    Captain_France_left = pygame.transform.scale(Captain_France_left, ( Size_Tile, Size_Tile))
     
-
-    #extracts the background from file
 
 
 
@@ -58,8 +60,8 @@ def startGame(_taille_ecran) :
         if current_R.map[player_1.position[0],player_1.position[1]] == 1004 :
             current_R = nextRoom(current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
-            for k in range current_R.size :
-                for l in range current_R.size :
+            for k in range (current_R.size) :
+                for l in range (current_R.size) :
                     if first_R.map[k,l].type == 1003:
                         player_1.position
                     
@@ -128,13 +130,13 @@ def startGame(_taille_ecran) :
         # Draw the image on the screen if facing up is = 0
         if (facing_up == 0):
 
-            player1.__repr__(Captain_France)
+            player_1.__repr__(Captain_France)
         elif(facing_up == 1):# Draw the cap's back on the screen
-            player1.__repr__(Captain_France_dos)
+            player_1.__repr__(Captain_France_dos)
         elif(facing_right == 1): # Draw the Captain Frnace right on the screen
-            player1.__repr__(Captain_France_right)
+            player_1.__repr__(Captain_France_right)
         elif(facing_left == 1): # Draw the Captain Frnace left on the screen
-            player1.__repr__(Captain_France_left)
+            player_1.__repr__(Captain_France_left)
     
     
         facing_up = 0
@@ -153,21 +155,15 @@ def startGame(_taille_ecran) :
     pygame.quit()
 
 
-
-Game = startGame(pixelSize)
-
 #Creation de la premiere fenetre
 pygame.init()
+
 #determination des dimentions de l'ecran
 pixelSize = (700,700)
-
-#Creation de l'ecran
 screen = pygame.display.set_mode(pixelSize)
+#Creation de l'ecran
+Game = startGame(pixelSize[0])
 
-
-
-# Get the dimensions of the background image
-background_image_width, background_image_height = background_image.get_size()
 
 
 
