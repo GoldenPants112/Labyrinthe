@@ -57,12 +57,12 @@ def startGame(_taille_ecran) :
 
     while running:
 
-        if current_R.map[player_1.position[0],player_1.position[1]] == 1004 :
+        if current_R.map[player_1.position[0],player_1.position[1]] == 4 :
             current_R = nextRoom(current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (current_R.size) :
                 for l in range (current_R.size) :
-                    if first_R.map[k,l].type == 1003:
+                    if first_R.map[k,l].type == 3:
                         player_1.position
                     
 
@@ -102,15 +102,15 @@ def startGame(_taille_ecran) :
          
 
         # Update character position based on movement flags and the type of the next tile
-        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 1002:
+        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 2:
             player_1.position[1] -= player_1.speed * Size_Tile
             facing_up=1
 
-        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 1002:
+        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 2:
             player_1.position[0] -= player_1.speed * Size_Tile
-        if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 1002:
+        if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 2:
             player_1.position[1] += player_1.speed * Size_Tile
-        if move_right and player_1.position[0] < _taille_ecran[0] - Captain_France_width and current_R.map[player_1.position[0] +1 ].type != 1002:
+        if move_right and player_1.position[0] < _taille_ecran[0] - Captain_France_width and current_R.map[player_1.position[0] +1 ].type != y2:
             player_1.position[0] += player_1.speed * Size_Tile
 
 
