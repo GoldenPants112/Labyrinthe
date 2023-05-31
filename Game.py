@@ -5,7 +5,7 @@ import Class_Room
 def nextRoom(_currentRoom):
     nxt_room = _currentRoom.roomId +1
     
-    return Class_Room.Room.__init__(nextRoom)
+    return Class_Room.Room.__init__(nxt_room)
 
 def startGame(_taille_ecran) :
     running = True
@@ -14,14 +14,11 @@ def startGame(_taille_ecran) :
 
     first_R = Class_Room.Room(1)
     
-    
-    #check ou est l'entree et place le joueur à celle ci (init depart)
+    #check ou est l'entree et place le joueur a celle ci (init depart)
     for k in range (first_R.size) :
         for l in range (first_R.size) :
-            if first_R.map[k,l].type == 1003:
+            if first_R.map[k,l] == 3:
                 player_1 = Class_Player.Player.__init__("Geralt",[k,l],1)
-
-    
 
     current_R = first_R
     Size_Tile = _taille_ecran/current_R.size
@@ -41,11 +38,7 @@ def startGame(_taille_ecran) :
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( Size_Tile, Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( Size_Tile, Size_Tile))
     
-
-
-
     # set Movement flags
-
     move_up = False
     move_down = False
     move_left = False
@@ -53,20 +46,21 @@ def startGame(_taille_ecran) :
 
     # set orientation Flags (pour les textures)
     facing_up = 0
-    
 
     while running:
-
+        #check si le joueur est à la sortie
         if current_R.map[player_1.position[0],player_1.position[1]] == 4 :
             current_R = nextRoom(current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (current_R.size) :
                 for l in range (current_R.size) :
                     if first_R.map[k,l].type == 3:
-                        player_1.position
-                    
+                        player_1.position[0] = k
+                        player_1.position[1] = l                   
 
         Size_Tile =  _taille_ecran/current_R.size
+
+        current_R.__repr__(screen,Size_Tile)
 
         Captain_France_dos = pygame.transform.scale(Captain_France_dos, (Size_Tile,Size_Tile))
         Captain_France_width, Captain_France_height = Captain_France.get_size()
@@ -160,8 +154,10 @@ pygame.init()
 
 #determination des dimentions de l'ecran
 pixelSize = (700,700)
-screen = pygame.display.set_mode(pixelSize)
 #Creation de l'ecran
+screen = pygame.display.set_mode(pixelSize)
+
+#debut de la partie
 Game = startGame(pixelSize[0])
 
 
