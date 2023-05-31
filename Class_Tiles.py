@@ -5,7 +5,7 @@ class Tiles:
         self.type=_type
         self.txtu_mur = pygame.image.load("Assets/Mur.png")
         self.txtu_entree = pygame.image.load("Assets/Porte_entree.png")
-        self.txtu_sortie = pygame.image.load("Assets/Prote_sortie.png")
+        self.txtu_sortie = pygame.image.load("Assets/Porte_sortie.png")
 
     def __repr__(self,_ecran,_sizeTile,_posx,posy):
         #affiche un mur si le type est le bon

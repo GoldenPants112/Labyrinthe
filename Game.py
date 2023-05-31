@@ -96,15 +96,15 @@ def startGame(_taille_ecran) :
          
 
         # Update character position based on movement flags and the type of the next tile
-        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 2:
+        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 1:
             player_1.position[1] -= player_1.speed * Size_Tile
             facing_up=1
 
-        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 2:
+        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 1:
             player_1.position[0] -= player_1.speed * Size_Tile
-        if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 2:
+        if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 1:
             player_1.position[1] += player_1.speed * Size_Tile
-        if move_right and player_1.position[0] < _taille_ecran[0] - Captain_France_width and current_R.map[player_1.position[0] +1 ].type != y2:
+        if move_right and player_1.position[0] < _taille_ecran[0] - Captain_France_width and current_R.map[player_1.position[0] +1 ].type != 1:
             player_1.position[0] += player_1.speed * Size_Tile
 
 

@@ -14,19 +14,23 @@ class Room :
         if (self.roomId == 1):
             f = open("Salle1.txt")
             i = 0
-            for line in f.readlines:
+            for line in f.readlines():
+                line=line.strip("\n")
                 self.map.append([])
                 for c in line:
                     self.map[i].append((Class_Tiles.Tiles(int(c))))
                 i = i + 1 
+            self.size=len(self.map[0])
         if (self.roomId == 2):
             f = open("Salle2.txt")
             i = 0
-            for line in f.readlines:
+            for line in f.readlines():
+                line=line.strip("\n")
                 self.map.append([])
                 for c in line:
                     self.map[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
+                i = i + 1
+            self.size=len(self.map[0])
         
 
     def __repr__(self,_currentScreen,_tilesize):
