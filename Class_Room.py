@@ -34,6 +34,6 @@ class Room :
         
 
     def __repr__(self,_currentScreen,_tilesize):
-        for j in self.size:
-            for i in self.size:
-                self.map[i][j].__repr__(_currentScreen,_tilesize,i,j)
+        for i in range(self.size):
+            for j in range(self.size):
+                self.map[i][j].__repr__(_currentScreen,_tilesize,j,i)

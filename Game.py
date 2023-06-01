@@ -15,13 +15,14 @@ def startGame(_taille_ecran) :
     first_R = Class_Room.Room(1)
     
     #check ou est l'entree et place le joueur a celle ci (init depart)
-    for k in range (first_R.size) :
-        for l in range (first_R.size) :
-            if first_R.map[k,l] == 3:
-                player_1 = Class_Player.Player.__init__("Geralt",[k,l],1)
+    for k in range(first_R.size) :
+        for l in range(first_R.size) :
+            if first_R.map[k][l].type == 3:
+                speed=int(1)
+                player_1 = Class_Player.Player("Hicham",[k,l],speed)
 
     current_R = first_R
-    Size_Tile = _taille_ecran/current_R.size
+    Size_Tile = _taille_ecran[0]/current_R.size
 
     #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
@@ -34,7 +35,7 @@ def startGame(_taille_ecran) :
     #scaling of the assets
     Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( Size_Tile, Size_Tile))
     Captain_France = pygame.transform.scale(Captain_France, ( Size_Tile, Size_Tile))
-    background_image = pygame.transform.scale(background_image, (Size_Tile,Size_Tile/2))
+    background_image = pygame.transform.scale(background_image, (2*Size_Tile, Size_Tile))
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( Size_Tile, Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( Size_Tile, Size_Tile))
     
@@ -49,16 +50,23 @@ def startGame(_taille_ecran) :
 
     while running:
         #check si le joueur est à la sortie
-        if current_R.map[player_1.position[0],player_1.position[1]] == 4 :
+        if current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             current_R = nextRoom(current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (current_R.size) :
                 for l in range (current_R.size) :
-                    if first_R.map[k,l].type == 3:
+                    if first_R.map[k][l].type == 3:
                         player_1.position[0] = k
                         player_1.position[1] = l                   
 
-        Size_Tile =  _taille_ecran/current_R.size
+      # Draw the background on the screen
+        for i in range(0,_taille_ecran[0]):
+            for j in range(0,_taille_ecran[0]):
+                if (j% (Size_Tile) == 0 and i%(2*Size_Tile) == 0):
+                    screen.blit(background_image,(i,j))
+            
+
+        Size_Tile =  _taille_ecran[0]//current_R.size
 
         current_R.__repr__(screen,Size_Tile)
 
@@ -96,27 +104,21 @@ def startGame(_taille_ecran) :
          
 
         # Update character position based on movement flags and the type of the next tile
-        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[1]-1 ].type != 1:
+        if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
             player_1.position[1] -= player_1.speed * Size_Tile
             facing_up=1
 
-        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1].type != 1:
+        if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1][player_1.position[1]].type != 1:
             player_1.position[0] -= player_1.speed * Size_Tile
-        if move_down and player_1.position[1] < _taille_ecran[1] - Captain_France_height and current_R.map[player_1.position[1] +1 ].type != 1:
+        if move_down and player_1.position[1] < (_taille_ecran[1] - Captain_France_height) and current_R.map[player_1.position[0]][player_1.position[1]+1].type != 1:
             player_1.position[1] += player_1.speed * Size_Tile
-        if move_right and player_1.position[0] < _taille_ecran[0] - Captain_France_width and current_R.map[player_1.position[0] +1 ].type != 1:
+        if move_right and player_1.position[0] < (_taille_ecran[0] - Captain_France_width) and current_R.map[player_1.position[0]+1][player_1.position[1]].type != 1:
             player_1.position[0] += player_1.speed * Size_Tile
 
 
-    
+        
 
-        # Draw the background on the screen
-
-        for i in range (_taille_ecran[0]):
-            for j in range (_taille_ecran[1]):
-                if (j%Size_Tile/2 == 0 and i%Size_Tile == 0):
-                    screen.blit(background_image,(i,j))
-            
+  
 
         #check la position du joueur si le joueur va dans le mur ou non
 
@@ -124,13 +126,13 @@ def startGame(_taille_ecran) :
         # Draw the image on the screen if facing up is = 0
         if (facing_up == 0):
 
-            player_1.__repr__(Captain_France)
+            player_1.__repr__(Captain_France,screen)
         elif(facing_up == 1):# Draw the cap's back on the screen
-            player_1.__repr__(Captain_France_dos)
+            player_1.__repr__(Captain_France_dos,screen)
         elif(facing_right == 1): # Draw the Captain Frnace right on the screen
-            player_1.__repr__(Captain_France_right)
+            player_1.__repr__(Captain_France_right,screen)
         elif(facing_left == 1): # Draw the Captain Frnace left on the screen
-            player_1.__repr__(Captain_France_left)
+            player_1.__repr__(Captain_France_left,screen)
     
     
         facing_up = 0
@@ -153,12 +155,12 @@ def startGame(_taille_ecran) :
 pygame.init()
 
 #determination des dimentions de l'ecran
-pixelSize = (700,700)
+pixelSize = [700,700]
 #Creation de l'ecran
 screen = pygame.display.set_mode(pixelSize)
 
 #debut de la partie
-Game = startGame(pixelSize[0])
+Game = startGame(pixelSize)
 
 
 
