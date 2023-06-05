@@ -3,26 +3,32 @@ import Class_Player
 import Class_Room
 
 def nextRoom(_currentRoom):
-    nxt_room = _currentRoom.roomId +1
+    nxt_room_Id = _currentRoom.roomId
     
-    return Class_Room.Room.__init__(nxt_room)
+    nxt_room_Id += 1
+    nxt_room = Class_Room.Room(nxt_room_Id)
+    return nxt_room
 
 def startGame(_taille_ecran) :
     running = True
     clock = pygame.time.Clock()
-    FPS = 5
+    FPS = 6
 
     first_R = Class_Room.Room(1)
     
+    current_R = first_R
+    Size_Tile = _taille_ecran[0]/current_R.size
+
     #check ou est l'entree et place le joueur a celle ci (init depart)
     for k in range(first_R.size) :
         for l in range(first_R.size) :
             if first_R.map[k][l].type == 3:
                 speed=int(1)
-                player_1 = Class_Player.Player("Hicham",[k,l],speed)
+                start_pos = [k,l]
+                player_1 = Class_Player.Player("Hicham",start_pos,speed)
+                print(player_1.position)
 
-    current_R = first_R
-    Size_Tile = _taille_ecran[0]/current_R.size
+    
 
     #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
@@ -47,15 +53,21 @@ def startGame(_taille_ecran) :
 
     # set orientation Flags (pour les textures)
     facing_up = 0
+    facing_right = 0
+    facing_left = 0
+    facing_down = 0
+
+
+
 
     while running:
         #check si le joueur est à la sortie
         if current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
-            current_R = nextRoom(current_R)
+            current_R  = nextRoom(current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (current_R.size) :
                 for l in range (current_R.size) :
-                    if first_R.map[k][l].type == 3:
+                    if current_R.map[k][l].type == 3:
                         player_1.position[0] = k
                         player_1.position[1] = l                   
 
@@ -105,15 +117,20 @@ def startGame(_taille_ecran) :
 
         # Update character position based on movement flags and the type of the next tile
         if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
-            player_1.position[1] -= player_1.speed * Size_Tile
+            player_1.position[1] -= player_1.speed 
             facing_up=1
 
         if move_left and player_1.position[0] > 0 and current_R.map[player_1.position[0]-1][player_1.position[1]].type != 1:
-            player_1.position[0] -= player_1.speed * Size_Tile
+            player_1.position[0] -= player_1.speed 
+            facing_left=1
+
         if move_down and player_1.position[1] < (_taille_ecran[1] - Captain_France_height) and current_R.map[player_1.position[0]][player_1.position[1]+1].type != 1:
-            player_1.position[1] += player_1.speed * Size_Tile
+            player_1.position[1] += player_1.speed
+            facing_down=1
+
         if move_right and player_1.position[0] < (_taille_ecran[0] - Captain_France_width) and current_R.map[player_1.position[0]+1][player_1.position[1]].type != 1:
-            player_1.position[0] += player_1.speed * Size_Tile
+            player_1.position[0] += player_1.speed
+            facing_right=1 
 
 
         
@@ -124,21 +141,25 @@ def startGame(_taille_ecran) :
 
     
         # Draw the image on the screen if facing up is = 0
-        if (facing_up == 0):
+        if (facing_down == 1):
+            player_1.__repr__(Captain_France,screen,Size_Tile)
 
-            player_1.__repr__(Captain_France,screen)
         elif(facing_up == 1):# Draw the cap's back on the screen
-            player_1.__repr__(Captain_France_dos,screen)
-        elif(facing_right == 1): # Draw the Captain Frnace right on the screen
-            player_1.__repr__(Captain_France_right,screen)
+            player_1.__repr__(Captain_France_dos,screen,Size_Tile)
+
+        elif(facing_right == 1): # Draw the Captain Franace right on the screen
+            player_1.__repr__(Captain_France_right,screen,Size_Tile)
+
         elif(facing_left == 1): # Draw the Captain Frnace left on the screen
-            player_1.__repr__(Captain_France_left,screen)
-    
+            player_1.__repr__(Captain_France_left,screen,Size_Tile)
+
+        else:
+            player_1.__repr__(Captain_France,screen,Size_Tile)a
     
         facing_up = 0
-        facing_left=0
-        facing_right=0
-
+        facing_left = 0 
+        facing_right = 0
+        facing_down =0
 
 
         # Update the screen
