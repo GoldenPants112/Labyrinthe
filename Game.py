@@ -154,7 +154,7 @@ def startGame(_taille_ecran) :
             player_1.__repr__(Captain_France_left,screen,Size_Tile)
 
         else:
-            player_1.__repr__(Captain_France,screen,Size_Tile)a
+            player_1.__repr__(Captain_France,screen,Size_Tile)
     
         facing_up = 0
         facing_left = 0 
