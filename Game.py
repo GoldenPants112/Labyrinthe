@@ -169,9 +169,9 @@ def startGame(_taille_ecran) :
 
         pygame.draw.rect(screen,(0,0,0), pygame.Rect(0 , 0 , (player_1.position[0]+2)*Size_Tile , (player_1.position[1]-2)*Size_Tile ))
 
-        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]+2)*Size_Tile , 0 , _taille_ecran - (player_1.position[0]+2)*Size_Tile , (player_1.position[1]+2)*Size_Tile  ) )
+        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]+3)*Size_Tile , 0 , _taille_ecran - (player_1.position[0]+2)*Size_Tile , (player_1.position[1]+2)*Size_Tile  ) )
 
-        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]-2)*Size_Tile , (player_1.position[1]+2)*Size_Tile , _taille_ecran - (player_1.position[0]-2)*Size_Tile , _taille_ecran - (player_1.position[1]+2)*Size_Tile ) ) 
+        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]-2)*Size_Tile , (player_1.position[1]+3)*Size_Tile , _taille_ecran - (player_1.position[0]-2)*Size_Tile , _taille_ecran - (player_1.position[1]+2)*Size_Tile ) ) 
         
         pygame.draw.rect(screen,(0,0,0),pygame.Rect( 0 , (player_1.position[1]-2)*Size_Tile , (player_1.position[0]-2)*Size_Tile , _taille_ecran - (player_1.position[1]-2)*Size_Tile ))
 
