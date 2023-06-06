@@ -26,7 +26,6 @@ def startGame(_taille_ecran) :
                 speed=int(1)
                 start_pos = [k,l]
                 player_1 = Class_Player.Player("Hicham",start_pos,speed)
-                print(player_1.position)
 
     
 
@@ -82,11 +81,18 @@ def startGame(_taille_ecran) :
 
         current_R.__repr__(screen,Size_Tile)
 
+        
+    
+        Captain_France = pygame.transform.scale(Captain_France, (Size_Tile,Size_Tile))
         Captain_France_dos = pygame.transform.scale(Captain_France_dos, (Size_Tile,Size_Tile))
+        Captain_France_left = pygame.transform.scale(Captain_France_left, (Size_Tile,Size_Tile))
+        Captain_France_right = pygame.transform.scale(Captain_France_right, (Size_Tile,Size_Tile))
+
+
+
+
+
         Captain_France_width, Captain_France_height = Captain_France.get_size()
-
-        Captain_France_dos = pygame.transform.scale(Captain_France_dos, (Size_Tile,Size_Tile))
-
         #if X is pressed then close the window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
