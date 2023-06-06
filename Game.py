@@ -17,7 +17,7 @@ def startGame(_taille_ecran) :
     first_R = Class_Room.Room(1)
     
     current_R = first_R
-    Size_Tile = _taille_ecran[0]/current_R.size
+    Size_Tile = _taille_ecran[1]/current_R.size
 
     #check ou est l'entree et place le joueur a celle ci (init depart)
     for k in range(first_R.size) :
@@ -77,7 +77,7 @@ def startGame(_taille_ecran) :
                     screen.blit(background_image,(i,j))
             
 
-        Size_Tile =  _taille_ecran[0]//current_R.size
+        Size_Tile =  _taille_ecran[1]//current_R.size
 
         current_R.__repr__(screen,Size_Tile)
 
@@ -158,7 +158,6 @@ def startGame(_taille_ecran) :
 
         elif(facing_left == 1): # Draw the Captain Frnace left on the screen
             player_1.__repr__(Captain_France_left,screen,Size_Tile)
-
         else:
             player_1.__repr__(Captain_France,screen,Size_Tile)
     
@@ -167,14 +166,12 @@ def startGame(_taille_ecran) :
         facing_right = 0
         facing_down = 0
 
+        #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
+
         pygame.draw.rect(screen,(0,0,0), pygame.Rect(0 , 0 , (player_1.position[0] +2 )*Size_Tile , (player_1.position[1] -2 )*Size_Tile ))
-		
-        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]+3)*Size_Tile , 0 , _taille_ecran - (player_1.position[0]+2)*Size_Tile , (player_1.position[1]+2)*Size_Tile  ) )
-
-        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]-2)*Size_Tile , (player_1.position[1]+3)*Size_Tile , _taille_ecran - (player_1.position[0]-2)*Size_Tile , _taille_ecran - (player_1.position[1]+2)*Size_Tile ) ) 
-
-        
-        pygame.draw.rect(screen,(0,0,0),pygame.Rect( 0 , (player_1.position[1] -2 )*Size_Tile , (player_1.position[0]-2)*Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*Size_Tile ))
+        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]+3)*Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0]+2)*Size_Tile , (player_1.position[1]+2)*Size_Tile  ) )
+        pygame.draw.rect(screen,(0,0,0), pygame.Rect( (player_1.position[0]-2)*Size_Tile , (player_1.position[1]+3)*Size_Tile , _taille_ecran[0] - (player_1.position[0]-2)*Size_Tile , _taille_ecran[1] - (player_1.position[1]+2)*Size_Tile ) )
+        pygame.draw.rect(screen,(0,0,0),pygame.Rect( 0 , (player_1.position[1] -2 )*Size_Tile , (player_1.position[0]-2)*Size_Tile , _taille_ecran[1]  - (player_1.position[1]-2)*Size_Tile ))
 
         # Update the screen
         pygame.display.update()
