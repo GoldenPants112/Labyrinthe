@@ -14,7 +14,6 @@ def startGame(_taille_ecran) :
     clock = pygame.time.Clock()
     FPS = 6
 
-
     #création de la première salle
     first_R = Class_Room.Room(1)
     current_R = first_R
@@ -42,10 +41,6 @@ def startGame(_taille_ecran) :
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( Size_Tile, Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( Size_Tile, Size_Tile))
     
-   
- 
-  
-
     Game(_taille_ecran,player_1,background_image,clock,FPS)
     
 
