@@ -3,8 +3,8 @@ import Class_Player
 import Class_Room
 
 def nextRoom(_currentRoom):
+    #prend la salel actuel et retourne une nouvelle salle construite
     nxt_room_Id = _currentRoom.roomId
-    
     nxt_room_Id += 1
     nxt_room = Class_Room.Room(nxt_room_Id)
     return nxt_room
@@ -14,10 +14,10 @@ def startGame(_taille_ecran) :
     clock = pygame.time.Clock()
     FPS = 6
 
+    #création de la première salle
     first_R = Class_Room.Room(1)
-    
     current_R = first_R
-    Size_Tile = _taille_ecran[0]/current_R.size
+    Size_Tile = _taille_ecran[1]/current_R.size
 
     #check ou est l'entree et place le joueur a celle ci (init depart)
     for k in range(first_R.size) :
@@ -75,24 +75,23 @@ def startGame(_taille_ecran) :
             for j in range(0,_taille_ecran[0]):
                 if (j% (Size_Tile) == 0 and i%(2*Size_Tile) == 0):
                     screen.blit(background_image,(i,j))
-            
-
-        Size_Tile =  _taille_ecran[0]//current_R.size
-
-        current_R.__repr__(screen,Size_Tile)
 
         
-    
+        #met à jour la taille des textures  (pratique lorsque qu'on change de salle avec des salles de taille différentes)
+        Size_Tile =  _taille_ecran[1]//current_R.size
+
         Captain_France = pygame.transform.scale(Captain_France, (Size_Tile,Size_Tile))
         Captain_France_dos = pygame.transform.scale(Captain_France_dos, (Size_Tile,Size_Tile))
         Captain_France_left = pygame.transform.scale(Captain_France_left, (Size_Tile,Size_Tile))
         Captain_France_right = pygame.transform.scale(Captain_France_right, (Size_Tile,Size_Tile))
 
-
-
-
-
+        #récupère la taille d'une des textures (pour les colisions)
         Captain_France_width, Captain_France_height = Captain_France.get_size()
+
+        #affiche la salle
+        current_R.__repr__(screen,Size_Tile)
+       
+
         #if X is pressed then close the window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -121,7 +120,7 @@ def startGame(_taille_ecran) :
 
          
 
-        # Update character position based on movement flags and the type of the next tile
+        # Update character position and set oirentation flags, based on movement flags and the type of the next tile
         if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
             player_1.position[1] -= player_1.speed
             facing_up=1
@@ -139,14 +138,9 @@ def startGame(_taille_ecran) :
             facing_right=1 
 
 
-        
-
-  
-
-        #check la position du joueur si le joueur va dans le mur ou non
-
     
-        # Draw the image on the screen if facing up is = 0
+        # Draw the rigth texture after the right orientation flag
+
         if (facing_down == 1):
             player_1.__repr__(Captain_France,screen,Size_Tile)
 
@@ -158,15 +152,17 @@ def startGame(_taille_ecran) :
 
         elif(facing_left == 1): # Draw the Captain Frnace left on the screen
             player_1.__repr__(Captain_France_left,screen,Size_Tile)
-
         else:
             player_1.__repr__(Captain_France,screen,Size_Tile)
     
+        #réinitialisation des flags après mouvment
         facing_up = 0
         facing_left = 0 
         facing_right = 0
         facing_down = 0
         color_brouillard=(0,0,0)
+ #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
+
 
         #affichage de la tialle du brouillard en fonciton de l'iD de la salle
         
