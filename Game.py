@@ -175,12 +175,6 @@ def startGame(_taille_ecran) :
         
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -1 )*Size_Tile , (player_1.position[0]-1)*Size_Tile , _taille_ecran[0]  - (player_1.position[1]-1)*Size_Tile ))
 
-
-
-
-
-
-
         elif current_R.roomId == 3 or  current_R.roomId == 4 or  current_R.roomId == 5:       
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +3 )*Size_Tile , (player_1.position[1] -2 )*Size_Tile ))
 
@@ -189,6 +183,7 @@ def startGame(_taille_ecran) :
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*Size_Tile , (player_1.position[1]+3)*Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*Size_Tile ) ) 
         
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -2 )*Size_Tile , (player_1.position[0]-2)*Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*Size_Tile ))
+
 
         # Update the screen
         pygame.display.update()
