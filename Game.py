@@ -14,6 +14,7 @@ def startGame(_taille_ecran) :
     clock = pygame.time.Clock()
     FPS = 6
 
+
     #création de la première salle
     first_R = Class_Room.Room(1)
     current_R = first_R
@@ -27,15 +28,12 @@ def startGame(_taille_ecran) :
                 start_pos = [k,l]
                 player_1 = Class_Player.Player("Hicham",start_pos,speed)
 
-    
-
     #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
     Captain_France = pygame.image.load("Assets/Captain_France.png")
     background_image = pygame.image.load("Assets/Dungeon_Texture.jpg")
     Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
-
 
     #scaling of the assets
     Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( Size_Tile, Size_Tile))
@@ -44,6 +42,15 @@ def startGame(_taille_ecran) :
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( Size_Tile, Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( Size_Tile, Size_Tile))
     
+   
+ 
+  
+
+    Game(_taille_ecran,player_1,background_image,clock,FPS)
+    
+
+def Game(_taille_ecran,player_1,background_image,clock,FPS) :
+
     # set Movement flags
     move_up = False
     move_down = False
@@ -55,9 +62,6 @@ def startGame(_taille_ecran) :
     facing_right = 0
     facing_left = 0
     facing_down = 0
-
-
-
 
     while running:
         #check si le joueur est à la sortie
@@ -76,7 +80,6 @@ def startGame(_taille_ecran) :
                 if (j% (Size_Tile) == 0 and i%(2*Size_Tile) == 0):
                     screen.blit(background_image,(i,j))
 
-        
         #met à jour la taille des textures  (pratique lorsque qu'on change de salle avec des salles de taille différentes)
         Size_Tile =  _taille_ecran[1]//current_R.size
 
@@ -91,7 +94,6 @@ def startGame(_taille_ecran) :
         #affiche la salle
         current_R.__repr__(screen,Size_Tile)
        
-
         #if X is pressed then close the window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -118,8 +120,6 @@ def startGame(_taille_ecran) :
                 elif event.key == pygame.K_d:
                     move_right = False
 
-         
-
         # Update character position and set oirentation flags, based on movement flags and the type of the next tile
         if move_up and player_1.position[1] > 0 and current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
             player_1.position[1] -= player_1.speed
@@ -137,10 +137,7 @@ def startGame(_taille_ecran) :
             player_1.position[0] += player_1.speed
             facing_right=1 
 
-
-    
         # Draw the rigth texture after the right orientation flag
-
         if (facing_down == 1):
             player_1.__repr__(Captain_France,screen,Size_Tile)
 
@@ -161,33 +158,19 @@ def startGame(_taille_ecran) :
         facing_right = 0
         facing_down = 0
         color_brouillard=(0,0,0)
- #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
-
-
+ 
+        #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
         #affichage de la tialle du brouillard en fonciton de l'iD de la salle
-        
         if current_R.roomId == 1 or current_R.roomId == 2:
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +2 )*Size_Tile , (player_1.position[1] -1 )*Size_Tile ))
-
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] +2)*Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0] +2)*Size_Tile , (player_1.position[1]+2)*Size_Tile  ) )
-
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -1 )*Size_Tile , (player_1.position[1]+2)*Size_Tile , _taille_ecran[0]  - (player_1.position[0] -1)*Size_Tile , _taille_ecran[0] - (player_1.position[1] +2)*Size_Tile ) ) 
-        
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -1 )*Size_Tile , (player_1.position[0]-1)*Size_Tile , _taille_ecran[0]  - (player_1.position[1]-1)*Size_Tile ))
-
-
-
-
-
-
 
         elif current_R.roomId == 3 or  current_R.roomId == 4 or  current_R.roomId == 5:       
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +3 )*Size_Tile , (player_1.position[1] -2 )*Size_Tile ))
-
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] +3)*Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0] +3)*Size_Tile , (player_1.position[1]+3)*Size_Tile  ) )
-
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*Size_Tile , (player_1.position[1]+3)*Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*Size_Tile ) ) 
-        
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -2 )*Size_Tile , (player_1.position[0]-2)*Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*Size_Tile ))
 
         # Update the screen
