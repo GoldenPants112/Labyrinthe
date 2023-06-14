@@ -16,7 +16,6 @@ def startGame(_taille_ecran) :
     clock = pygame.time.Clock()
     FPS = 6
 
-
     #création de la première salle
     first_R = Class_Room.Room(1)
     current_R = first_R
@@ -61,13 +60,14 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
 
     #scaling of the assets
+
     Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( _Size_Tile, _Size_Tile))
     Captain_France = pygame.transform.scale(Captain_France, ( _Size_Tile, _Size_Tile))
     background_image = pygame.transform.scale(background_image, (2*_Size_Tile, _Size_Tile))
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( _Size_Tile, _Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( _Size_Tile, _Size_Tile))
-    curseur_surface= pygame.transform.scale(curseur_surface, (30,30))
 
+    curseur_surface= pygame.transform.scale(curseur_surface, (30,30))
 
     # set Movement flags
     move_up = False
