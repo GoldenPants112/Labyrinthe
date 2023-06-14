@@ -52,7 +52,6 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     mixer.music.play()
 
 
-
  #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
     Captain_France = pygame.image.load("Assets/Captain_France.png")
@@ -82,11 +81,52 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     facing_left = 0
     facing_down = 0
 
+    
     while _running:
         
+        #gets the time in seconds since the init
+        time = pygame.time.get_ticks()
+
+        if _current_R.roomId == 1:
+            print((time)/1000)
+        elif _current_R.roomId == 2 :
+            print((time - time_1)/1000)
+        elif _current_R.roomId == 3:
+            print((time -time_1-time_2)/1000)
+        elif _current_R.roomId == 4:
+            print((time-time_1-time_2-time_3)/1000)
+        elif _current_R.roomId == 5:
+            print((time-time_1-time_2-time_3-time_4)/1000)
+
+
+
+
 
         #check si le joueur est à la sortie
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
+            #afiichage du temps requit pour finir une salle
+            if _current_R.roomId == 1:
+                time_1=time
+                print("Fin du premier niveau") 
+                print(time_1/1000)
+            if _current_R.roomId == 2:
+                time_2=time-time_1
+                print("Fin du deuxieme niveau")
+                print(time_2/1000)
+            if _current_R.roomId == 3:
+                time_3=time-time_2-time_1
+                print("Fin du troiseme niveau")
+                print(time_3/1000)
+            if _current_R.roomId == 4:
+                time_4=time-time_3-time_2-time_1
+                print("Fin du quatrieme niveau")
+                print(time_4/1000)
+            if _current_R.roomId == 5:
+                time_5=time-time_4-time_3-time_2-time_1
+                print("Fin du cinquieme niveau")
+                print(time_5/1000)
+
+
             _current_R  = nextRoom(_current_R)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (_current_R.size) :
