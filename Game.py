@@ -1,11 +1,13 @@
 import pygame
 import Class_Player
 import Class_Room
+import menu
 from pygame import mixer
 
 
 def nextRoom(_currentRoom):
     #prend la salel actuel et retourne une nouvelle salle construite
+
     nxt_room_Id = _currentRoom.roomId
     nxt_room_Id += 1
     nxt_room = Class_Room.Room(nxt_room_Id)
@@ -29,14 +31,7 @@ def startGame(_taille_ecran) :
                 start_pos = [k,l]
                 player_1 = Class_Player.Player("Hicham",start_pos,speed)
 
-   
-
-    Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
-    
-
-def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
-
-    #Instantiate mixer
+     #Instantiate mixer
     mixer.init()
 
     #Load audio file
@@ -50,6 +45,15 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     #Play the music
     mixer.music.play()
 
+    play_button = pygame.image.load("Buttons\Play.png")
+    menu_bg = pygame.image.load("Buttons\Fond-menu.png")
+    
+    menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
+
+    Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
+    
+
+def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
  #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
@@ -58,14 +62,19 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
     curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
+    play_button = pygame.image.load("Buttons\Play.png")
+    menu_bg = pygame.image.load("Buttons\Fond-menu.png")
+    resume_button = pygame.image.load("Buttons\Resume.png")
+    pause_button = pygame.image.load("Buttons\Bouton_menu.png")
+    pause_bg = pygame.image.load("Buttons\Back_menu.png")
 
     #scaling of the assets
-
     Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( _Size_Tile, _Size_Tile))
     Captain_France = pygame.transform.scale(Captain_France, ( _Size_Tile, _Size_Tile))
     background_image = pygame.transform.scale(background_image, (2*_Size_Tile, _Size_Tile))
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( _Size_Tile, _Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( _Size_Tile, _Size_Tile))
+    pause_button = pygame.transform.scale(pause_button, (30,30))
 
     curseur_surface= pygame.transform.scale(curseur_surface, (30,30))
 
@@ -238,8 +247,14 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         curseur=pygame.cursors.Cursor((0,0),curseur_surface)
         pygame.mouse.set_cursor(curseur)
 
-        
+        if pygame.mouse.get_pressed()[0] == 1 :
+            mouse_pos = pygame.mouse.get_pos()
+            #verfie si la souris est a la position du bouton pause
+            if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
+                if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
+                    menu.pause_menu(screen,_taille_ecran,resume_button,pause_bg)
 
+        screen.blit(pause_button,(30,30))
 
         # Update the screen
         pygame.display.update()
