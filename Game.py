@@ -1,6 +1,8 @@
 import pygame
 import Class_Player
 import Class_Room
+from pygame import mixer
+
 
 def nextRoom(_currentRoom):
     #prend la salel actuel et retourne une nouvelle salle construite
@@ -34,12 +36,29 @@ def startGame(_taille_ecran) :
 
 def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
+    #Instantiate mixer
+    mixer.init()
+
+    #Load audio file
+    mixer.music.load('Soundtrack/Diablo2.mp3')
+
+    print("music started playing....")
+
+    #Set preferred volume
+    mixer.music.set_volume(0.7)
+
+    #Play the music
+    mixer.music.play()
+
+
+
  #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
     Captain_France = pygame.image.load("Assets/Captain_France.png")
     background_image = pygame.image.load("Assets/Dungeon_Texture.jpg")
     Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
+    curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
 
     #scaling of the assets
 
@@ -49,8 +68,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( _Size_Tile, _Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( _Size_Tile, _Size_Tile))
 
-    
-
+    curseur_surface= pygame.transform.scale(curseur_surface, (30,30))
 
     # set Movement flags
     move_up = False
@@ -65,6 +83,8 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     facing_down = 0
 
     while _running:
+        
+
         #check si le joueur est à la sortie
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             _current_R  = nextRoom(_current_R)
@@ -174,13 +194,19 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*_Size_Tile , (player_1.position[1]+3)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*_Size_Tile ) ) 
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -2 )*_Size_Tile , (player_1.position[0]-2)*_Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*_Size_Tile ))
 
+        #afficher le curseur adequat
+        curseur=pygame.cursors.Cursor((0,0),curseur_surface)
+        pygame.mouse.set_cursor(curseur)
+
+        
+
 
         # Update the screen
         pygame.display.update()
 
         # Delay to control the frame rate
         clock.tick(FPS)
-    
+   
     # Quit Pygame
     pygame.quit()
 
@@ -189,7 +215,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 pygame.init()
 
 #determination des dimentions de l'ecran
-pixelSize = [800,800]
+pixelSize = [700,700]
 #Creation de l'ecran
 screen = pygame.display.set_mode(pixelSize)
 
