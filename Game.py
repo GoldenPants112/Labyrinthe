@@ -41,6 +41,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     background_image = pygame.image.load("Assets/Dungeon_Texture.jpg")
     Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
+    curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
 
     #scaling of the assets
     Captain_France_dos = pygame.transform.scale(Captain_France_dos, ( _Size_Tile, _Size_Tile))
@@ -48,7 +49,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     background_image = pygame.transform.scale(background_image, (2*_Size_Tile, _Size_Tile))
     Captain_France_right = pygame.transform.scale(Captain_France_right, ( _Size_Tile, _Size_Tile))
     Captain_France_left = pygame.transform.scale(Captain_France_left, ( _Size_Tile, _Size_Tile))
-    
+    curseur_surface= pygame.transform.scale(curseur_surface, (30,30))
 
 
     # set Movement flags
@@ -173,7 +174,9 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*_Size_Tile , (player_1.position[1]+3)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*_Size_Tile ) ) 
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -2 )*_Size_Tile , (player_1.position[0]-2)*_Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*_Size_Tile ))
 
-
+        #afficher le curseur adequat
+        curseur=pygame.cursors.Cursor((0,0),curseur_surface)
+        pygame.mouse.set_cursor(curseur)
         # Update the screen
         pygame.display.update()
 
@@ -188,7 +191,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 pygame.init()
 
 #determination des dimentions de l'ecran
-pixelSize = [800,800]
+pixelSize = [700,700]
 #Creation de l'ecran
 screen = pygame.display.set_mode(pixelSize)
 
