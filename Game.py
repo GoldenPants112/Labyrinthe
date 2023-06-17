@@ -3,6 +3,10 @@ import Class_Player
 import Class_Room
 import menu
 from pygame import mixer
+import pygame.font
+
+
+pygame.font.init()
 
 
 def nextRoom(_currentRoom):
@@ -46,12 +50,14 @@ def startGame(_taille_ecran) :
     mixer.music.play()
 
     play_button = pygame.image.load("Buttons\Play.png")
-    menu_bg = pygame.image.load("Buttons\Fond-menu.png")
+    menu_bg = pygame.image.load("Buttons\Fond_menu.png")
     
     menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
 
     Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
     
+# Create a font object
+font = pygame.font.Font("Font/Raleway-Regular.ttf", 22)
 
 def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
@@ -63,7 +69,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
     curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
     play_button = pygame.image.load("Buttons\Play.png")
-    menu_bg = pygame.image.load("Buttons\Fond-menu.png")
+    menu_bg = pygame.image.load("Buttons\Fond_menu.png")
     resume_button = pygame.image.load("Buttons\Resume.png")
     pause_button = pygame.image.load("Buttons\Bouton_menu.png")
     pause_bg = pygame.image.load("Buttons\Back_menu.png")
@@ -91,23 +97,14 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     facing_down = 0
 
     
+    
+
+    
     while _running:
         
         #gets the time in seconds since the init
         time = pygame.time.get_ticks()
-
-        if _current_R.roomId == 1:
-            print((time)/1000)
-        elif _current_R.roomId == 2 :
-            print((time - time_1)/1000)
-        elif _current_R.roomId == 3:
-            print((time -time_1-time_2)/1000)
-        elif _current_R.roomId == 4:
-            print((time-time_1-time_2-time_3)/1000)
-        elif _current_R.roomId == 5:
-            print((time-time_1-time_2-time_3-time_4)/1000)
-
-
+     
 
 
 
@@ -247,14 +244,53 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         curseur=pygame.cursors.Cursor((0,0),curseur_surface)
         pygame.mouse.set_cursor(curseur)
 
+        
         if pygame.mouse.get_pressed()[0] == 1 :
             mouse_pos = pygame.mouse.get_pos()
             #verfie si la souris est a la position du bouton pause
             if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
                 if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
                     menu.pause_menu(screen,_taille_ecran,resume_button,pause_bg)
+        
 
         screen.blit(pause_button,(30,30))
+
+        
+        
+        
+        
+
+        if _current_R.roomId == 1:
+            print((time)/1000) 
+            # Render the time as text
+            lv1_time_text = font.render(f"Time : {time/1000} ", True, (255, 255, 255))
+
+            # Blit the rendered text onto the screen
+            screen.blit(lv1_time_text, (pixelSize[0] - 130, 10))
+
+        elif _current_R.roomId == 2 :
+            lvl2_time_text = font.render(f"Time : {(time - time_1)/1000} ", True, (255, 255, 255))
+            print((time - time_1)/1000)
+            screen.blit(lvl2_time_text, (pixelSize[0] - 130, 10))
+
+        elif _current_R.roomId == 3:
+            lvl3_time_text = font.render(f"Time : {(time -time_1-time_2)/1000} ", True, (255, 255, 255))
+            print((time -time_1-time_2)/1000)
+            screen.blit(lvl3_time_text, (pixelSize[0] - 130, 10))
+
+        elif _current_R.roomId == 4:
+            lvl4_time_text = font.render(f"Time : {(time-time_1-time_2-time_3)/1000} ", True, (255, 255, 255))
+            print((time-time_1-time_2-time_3)/1000)
+            screen.blit(lvl4_time_text, (pixelSize[0] - 130, 10))
+
+        elif _current_R.roomId == 5:
+            lvl5_time_text = font.render(f"Time : {(time-time_1-time_2-time_3-time_4)/1000} ", True, (255, 255, 255))
+            print((time-time_1-time_2-time_3-time_4)/1000)
+            screen.blit(lvl5_time_text, (pixelSize[0] - 130, 10))
+
+
+        # Update the entire display
+        pygame.display.flip()
 
         # Update the screen
         pygame.display.update()
