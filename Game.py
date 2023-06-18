@@ -39,11 +39,10 @@ def startGame(_taille_ecran) :
     mixer.init()
 
     #Load audio file
-    mixer.music.load('Soundtrack/Diablo2.mp3')
-
+    mixer.music.load('Sound/Diablo2.mp3')
 
     #Set preferred volume
-    mixer.music.set_volume(0.7)
+    mixer.music.set_volume(0.1)
 
     #Play the music
     mixer.music.play()
@@ -95,8 +94,8 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     facing_left = 0
     facing_down = 0
 
-    
-    
+    walk_sound = mixer.Sound('Sound/Walk.wav')
+    level_up_sound_effect = mixer.Sound('Sound/Level_Up_Sound_Effect.mp3')
 
     
     while _running:
@@ -110,6 +109,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         #check si le joueur est à la sortie
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             _current_R  = nextRoom(_current_R)
+            mixer.Sound.play(level_up_sound_effect)
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (_current_R.size) :
                 for l in range (_current_R.size) :
@@ -167,18 +167,22 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         if move_up and player_1.position[1] > 0 and _current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
             player_1.position[1] -= player_1.speed
             facing_up=1
+            mixer.Sound.play(walk_sound)
 
         if move_left and player_1.position[0] > 0 and _current_R.map[player_1.position[0]-1][player_1.position[1]].type != 1:
             player_1.position[0] -= player_1.speed
             facing_left=1
+            mixer.Sound.play(walk_sound)
 
         if move_down and player_1.position[1] < (_taille_ecran[1] - Captain_France_height) and _current_R.map[player_1.position[0]][player_1.position[1]+1].type != 1:
             player_1.position[1] += player_1.speed
             facing_down=1
+            mixer.Sound.play(walk_sound)
 
         if move_right and player_1.position[0] < (_taille_ecran[0] - Captain_France_width) and _current_R.map[player_1.position[0]+1][player_1.position[1]].type != 1:
             player_1.position[0] += player_1.speed
             facing_right=1 
+            mixer.Sound.play(walk_sound)
 
         # Draw the rigth texture after the right orientation flag
         if (facing_down == 1):
