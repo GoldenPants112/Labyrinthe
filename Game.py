@@ -4,6 +4,7 @@ import Class_Room
 import menu
 from pygame import mixer
 import pygame.font
+import random
 
 
 pygame.font.init()
@@ -50,7 +51,7 @@ def startGame(_taille_ecran) :
     play_button = pygame.image.load("Buttons\Play.png")
     menu_bg = pygame.image.load("Buttons\Fond_menu.png")
     
-    menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
+    #menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
 
     Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
     
@@ -96,7 +97,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
     walk_sound = mixer.Sound('Sound/Walk.wav')
     level_up_sound_effect = mixer.Sound('Sound/Level_Up_Sound_Effect.mp3')
-
+    lighting_sound=mixer.Sound('Sound/Lightning.mp3')
     
     while _running:
         
@@ -205,20 +206,26 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         facing_right = 0
         facing_down = 0
         color_brouillard=(0,0,0)
- 
+
+        #tonnaire qui permets au joueur de voir la salle en entier pour un image
+        lighting=random.randint(0,50)
+        
         #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
         #affichage de la tialle du brouillard en fonciton de l'iD de la salle
-        if _current_R.roomId == 1 or _current_R.roomId == 2:
+        if (_current_R.roomId == 1 or _current_R.roomId == 2) and lighting != 1:
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +2 )*_Size_Tile , (player_1.position[1] -1 )*_Size_Tile ))
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] +2)*_Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0] +2)*_Size_Tile , (player_1.position[1]+2)*_Size_Tile  ) )
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -1 )*_Size_Tile , (player_1.position[1]+2)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -1)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +2)*_Size_Tile ) ) 
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -1 )*_Size_Tile , (player_1.position[0]-1)*_Size_Tile , _taille_ecran[0]  - (player_1.position[1]-1)*_Size_Tile ))
 
-        elif _current_R.roomId == 3 or  _current_R.roomId == 4 or  _current_R.roomId == 5:       
+        elif (_current_R.roomId == 3 or  _current_R.roomId == 4 or  _current_R.roomId == 5) and lighting!=1:       
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +3 )*_Size_Tile , (player_1.position[1] -2 )*_Size_Tile ))
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] +3)*_Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0] +3)*_Size_Tile , (player_1.position[1]+3)*_Size_Tile  ) )
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*_Size_Tile , (player_1.position[1]+3)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*_Size_Tile ) ) 
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -2 )*_Size_Tile , (player_1.position[0]-2)*_Size_Tile , _taille_ecran[0]  - (player_1.position[1]-2)*_Size_Tile ))
+        elif lighting ==1 :
+            mixer.Sound.play(lighting_sound)
+
 
         #afficher le curseur adequat
         curseur=pygame.cursors.Cursor((0,0),curseur_surface)
@@ -269,23 +276,23 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             if _current_R.roomId == 1:
                 time_1=time
                 lvl1_accomplished_time = font.render(f"Time to complete level 1: {time_1/1000} ", True, (0, 255, 0))
-                screen.blit(lvl1_accomplished_time,((pixelSize[0] - 330, 70)))
+                screen.blit(lvl1_accomplished_time,((pixelSize[0] - 330, 50)))
             if _current_R.roomId == 2:
                 time_2=time-time_1
                 lvl2_accomplished_time = font.render(f"Time to complete level 2: {time_2/1000} ", True, (0, 255, 0))
-                screen.blit(lvl2_accomplished_time,((pixelSize[0] - 330, 70)))
+                screen.blit(lvl2_accomplished_time,((pixelSize[0] - 330, 50)))
             if _current_R.roomId == 3:
                 time_3=time-time_1-time_2
                 lvl3_accomplished_time = font.render(f"Time to complete level 3: {time_3/1000} ", True, (0, 255, 0))
-                screen.blit(lvl3_accomplished_time,((pixelSize[0] - 330, 70)))
+                screen.blit(lvl3_accomplished_time,((pixelSize[0] - 330, 50)))
             if _current_R.roomId == 4:
                 time_4=time-time_1-time_2-time_3
                 lvl4_accomplished_time = font.render(f"Time to complete level 4: {time_4/1000} ", True, (0, 255, 0))
-                screen.blit(lvl4_accomplished_time,((pixelSize[0] - 330, 70)))
+                screen.blit(lvl4_accomplished_time,((pixelSize[0] - 330, 50)))
             if _current_R.roomId == 5:
                 time_5=time-time_1-time_2-time_3-time_4
                 lvl5_accomplished_time = font.render(f"Time to complete level 5: {time_5/1000} ", True, (0, 255, 0))
-                screen.blit(lvl5_accomplished_time,((pixelSize[0] - 330, 70)))
+                screen.blit(lvl5_accomplished_time,((pixelSize[0] - 330, 50)))
 
 
 
