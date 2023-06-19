@@ -51,7 +51,7 @@ def startGame(_taille_ecran) :
     play_button = pygame.image.load("Buttons\Play.png")
     menu_bg = pygame.image.load("Buttons\Fond_menu.png")
     
-    #menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
+    menu.main_menu(screen,_taille_ecran,play_button,menu_bg)
 
     Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
     
@@ -248,7 +248,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         
 
         if _current_R.roomId == 1:
-            # Render the time as text
+                # Render the time as text
             lv1_time_text = font.render(f"Time : {time/1000} ", True, (255, 255, 255))
 
             # Blit the rendered text onto the screen
