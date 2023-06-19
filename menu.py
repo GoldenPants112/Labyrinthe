@@ -71,18 +71,18 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
     
     #on définie les positions des membres du menu
     pause_menu_pos = []
-    pause_menu_pos.append( (_taille_ecran[0]/2)-(pause_menu_size[0]/2))
-    pause_menu_pos.append( (_taille_ecran[0]/2)-(pause_menu_size[1]) )
+    pause_menu_pos.append( ((_taille_ecran[0]/2)-(pause_menu_size[0]/2 -70))/2)
+    pause_menu_pos.append( (_taille_ecran[0]/2)-(pause_menu_size[1]/2) )
 
     resume_button_pos = []
-    resume_button_pos.append(_taille_ecran[0]/2-resume_button_size[0] ) 
-    resume_button_pos.append((_taille_ecran[1]/2)-(pause_menu_size[1])+70)
+    resume_button_pos.append(_taille_ecran[0]/2-resume_button_size[0]/2 ) 
+    resume_button_pos.append((_taille_ecran[1]/2)-(pause_menu_size[1]))
 
     _textu_resume_button =  pygame.transform.scale(_textu_resume_button,( resume_button_size[0] , resume_button_size[1] ))
-    _textu_pause_bg = pygame.transform.scale(_textu_pause_bg,( pause_menu_size[0] , pause_menu_size[1] ) )
+    _textu_pause_bg = pygame.transform.scale(_textu_pause_bg,( 400 , 400 ) )
 
     _screen.blit(_textu_pause_bg , ( pause_menu_pos[0] , pause_menu_pos[1] ))
-    _screen.blit(_textu_resume_button, ( resume_button_pos[0] , resume_button_pos[1] ))
+    _screen.blit(_textu_resume_button, ( pause_menu_pos[0] +10 , resume_button_pos[1] ))
 
     checker = 1
     
@@ -95,13 +95,11 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
                 if mouse_pos[0] > (resume_button_pos[0]) and mouse_pos[0] < (resume_button_pos[0]+resume_button_size[0]) :
                     if mouse_pos[1] > (resume_button_pos[1])  and mouse_pos[1] < (resume_button_pos[1]+resume_button_size[1]) :
                         checker = 0
-		    if event.type == pygame.QUIT:
+
+            if event.type == pygame.QUIT:
                 pygame.quit()
-
-            
-            #rajouter d'éventuels autres boutons
-		pygame.display.update()   
-
+        
+        pygame.display.update()
 
 
 def engame(_screen,_taille_ecran,_textu_menu_bg):

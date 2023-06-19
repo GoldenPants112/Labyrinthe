@@ -68,8 +68,6 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     Captain_France_right = pygame.image.load("Assets/Captain_France_right.png")
     Captain_France_left = pygame.image.load("Assets/Captain_France_left.png")
     curseur_surface= pygame.image.load("Buttons/Curseur.png").convert_alpha()
-    play_button = pygame.image.load("Buttons\Play.png")
-    menu_bg = pygame.image.load("Buttons\Fond_menu.png")
     resume_button = pygame.image.load("Buttons\Resume.png")
     pause_button = pygame.image.load("Buttons\Bouton_menu.png")
     pause_bg = pygame.image.load("Buttons\Back_menu.png")
@@ -153,7 +151,15 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         #if X is pressed then close the window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                _running = False    
+                _running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    time_pause_start = time
+                    menu.pause_menu(screen,_taille_ecran,resume_button,pause_bg)
+                    time = pygame.time.get_ticks()
+                    time_pause_end=time
+                    time_pause = time_pause_end-time_pause_start+time_pause
 
             #Handle keyboard events
             if event.type == pygame.KEYDOWN:
@@ -242,8 +248,8 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         #afficher le curseur adequat
         curseur=pygame.cursors.Cursor((0,0),curseur_surface)
         pygame.mouse.set_cursor(curseur)
-
-        
+            
+            
         if pygame.mouse.get_pressed()[0] == 1 :
             mouse_pos = pygame.mouse.get_pos()
             #verfie si la souris est a la position du bouton pause
@@ -257,10 +263,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
                     
         screen.blit(pause_button,(30,30))
 
-        
-        
-        
-        
+
 
         if _current_R.roomId == 1:
                 # Render the time as text
