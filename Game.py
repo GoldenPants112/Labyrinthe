@@ -219,7 +219,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         color_brouillard=(0,0,0)
 
         #tonnaire qui permets au joueur de voir la salle en entier pour un image
-        lighting=random.randint(0,50)
+        lighting=random.randint(0,200)
         
         #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
         #affichage de la tialle du brouillard en fonciton de l'iD de la salle

@@ -1,4 +1,5 @@
 import pygame
+import pygame.font
 
 def main_menu(_screen,_taille_ecran,_textu_play_button,_textu_menu_bg) :
 
@@ -8,6 +9,8 @@ def main_menu(_screen,_taille_ecran,_textu_play_button,_textu_menu_bg) :
     #afficher le curseur adequat
     curseur=pygame.cursors.Cursor((0,0),curseur_surface)
     
+    #load le font du titre du jeu (Castle Escape)
+    title_font = pygame.font.Font("Font/Shownan.ttf", 82)
 
     play_button_size= []
     play_button_size.append(_taille_ecran[0]/3)
@@ -50,6 +53,9 @@ def main_menu(_screen,_taille_ecran,_textu_play_button,_textu_menu_bg) :
             
             #rajouter d'éventuels autres boutons
 
+        #Afficher le nom du jeu
+        title_text = title_font.render("Castle Escape ", True, (250, 249, 222))
+        _screen.blit(title_text, (100, 100))
 
         pygame.display.update()   
 
