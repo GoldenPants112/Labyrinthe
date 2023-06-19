@@ -101,8 +101,9 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     lighting_sound=mixer.Sound('Sound/Lightning.mp3')
     
     time_0=pygame.time.get_ticks()
-    print(time_0/1000)
+    
 
+    time_pause=0
     while _running:
         
         #gets the time in seconds since the init
@@ -113,8 +114,15 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
         #check si le joueur est à la sortie
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
+            #stocker le temps de chargemetn pour optimiser le temps
+            time_chargement_start=time
             _current_R  = nextRoom(_current_R)
+            time = pygame.time.get_ticks()
+            time_chargement_end=time
+            time_chargement = time_chargement_end-time_chargement_start
+            
             mixer.Sound.play(level_up_sound_effect)
+
             #check ou est l'entree est l'entree et place  joueur dedans
             for k in range (_current_R.size) :
                 for l in range (_current_R.size) :
@@ -241,9 +249,12 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             #verfie si la souris est a la position du bouton pause
             if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
                 if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
+                    time_pause_start = time
                     menu.pause_menu(screen,_taille_ecran,resume_button,pause_bg)
-        
-
+                    time = pygame.time.get_ticks()
+                    time_pause_end=time
+                    time_pause = time_pause_end-time_pause_start+time_pause
+                    
         screen.blit(pause_button,(30,30))
 
         
@@ -253,48 +264,52 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
         if _current_R.roomId == 1:
                 # Render the time as text
-            lv1_time_text = font.render(f"Time : {(time-time_0)/1000} ", True, (255, 255, 255))
+            lv1_time_text = font.render(f"Time : {(time-time_pause-time_0)/1000} ", True, (255, 255, 255))
 
             # Blit the rendered text onto the screen
             screen.blit(lv1_time_text, (pixelSize[0] - 140, 10))
 
         elif _current_R.roomId == 2 :
-            lvl2_time_text = font.render(f"Time : {(time-time_0 - time_1)/1000} ", True, (255, 255, 255))
+            lvl2_time_text = font.render(f"Time : {(time-time_pause-time_0 - time_1-time_chargement)/1000} ", True, (255, 255, 255))
             screen.blit(lvl2_time_text, (pixelSize[0] - 140, 10))
 
         elif _current_R.roomId == 3:
-            lvl3_time_text = font.render(f"Time : {(time -time_0-time_1-time_2)/1000} ", True, (255, 255, 255))
+            lvl3_time_text = font.render(f"Time : {(time -time_pause-time_0-time_1-time_2-time_chargement)/1000} ", True, (255, 255, 255))
             screen.blit(lvl3_time_text, (pixelSize[0] - 140, 10))
 
         elif _current_R.roomId == 4:
-            lvl4_time_text = font.render(f"Time : {(time-time_0-time_1-time_2-time_3)/1000} ", True, (255, 255, 255))
+            lvl4_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_chargement)/1000} ", True, (255, 255, 255))
             screen.blit(lvl4_time_text, (pixelSize[0] - 140, 10))
 
         elif _current_R.roomId == 5:
-            lvl5_time_text = font.render(f"Time : {(time-time_0-time_1-time_2-time_3-time_4)/1000} ", True, (255, 255, 255))
+            lvl5_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_4-time_chargement)/1000} ", True, (255, 255, 255))
             screen.blit(lvl5_time_text, (pixelSize[0] - 140, 10))
 
 
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             #afiichage du temps requit pour finir une salle
             if _current_R.roomId == 1:
-                time_1=time-time_0
+                time_1=time-time_pause-time_0
                 lvl1_accomplished_time = font.render(f"Time to complete level 1: {time_1/1000} ", True, (0, 255, 0))
                 screen.blit(lvl1_accomplished_time,((pixelSize[0] - 330, 50)))
+
             if _current_R.roomId == 2:
-                time_2=time-time_0-time_1
+                time_2=time-time_pause-time_0-time_1
                 lvl2_accomplished_time = font.render(f"Time to complete level 2: {time_2/1000} ", True, (0, 255, 0))
                 screen.blit(lvl2_accomplished_time,((pixelSize[0] - 330, 50)))
+
             if _current_R.roomId == 3:
-                time_3=time-time_0-time_1-time_2
+                time_3=time-time_pause-time_0-time_1-time_2
                 lvl3_accomplished_time = font.render(f"Time to complete level 3: {time_3/1000} ", True, (0, 255, 0))
                 screen.blit(lvl3_accomplished_time,((pixelSize[0] - 330, 50)))
+
             if _current_R.roomId == 4:
-                time_4=time-time_0-time_1-time_2-time_3
+                time_4=time-time_pause-time_0-time_1-time_2-time_3
                 lvl4_accomplished_time = font.render(f"Time to complete level 4: {time_4/1000} ", True, (0, 255, 0))
                 screen.blit(lvl4_accomplished_time,((pixelSize[0] - 330, 50)))
+
             if _current_R.roomId == 5:
-                time_5=time-time_0-time_1-time_2-time_3-time_4
+                time_5=time-time_pause-time_0-time_1-time_2-time_3-time_4
                 lvl5_accomplished_time = font.render(f"Time to complete level 5: {time_5/1000} ", True, (0, 255, 0))
                 screen.blit(lvl5_accomplished_time,((pixelSize[0] - 330, 50)))
 

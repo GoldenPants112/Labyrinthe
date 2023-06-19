@@ -83,11 +83,19 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
     while checker == 1 :
         mouse_pos = pygame.mouse.get_pos()
         #verifie si le joueur active un outon de la souris
-        if pygame.mouse.get_pressed()[0] == 1 :
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP :
             #verfie si la souris est a la position du bouton play
-            if mouse_pos[0] > (resume_button_pos[0]) and mouse_pos[0] < (resume_button_pos[0]+resume_button_size[0]) :
-                if mouse_pos[1] > (resume_button_pos[1])  and mouse_pos[1] < (resume_button_pos[1]+resume_button_size[1]) :
+                if mouse_pos[0] > (resume_button_pos[0]) and mouse_pos[0] < (resume_button_pos[0]+resume_button_size[0]) :
+                    if mouse_pos[1] > (resume_button_pos[1])  and mouse_pos[1] < (resume_button_pos[1]+resume_button_size[1]) :
                         checker = 0
+		    if event.type == pygame.QUIT:
+                pygame.quit()
+
+            
+            #rajouter d'éventuels autres boutons
+		pygame.display.update()   
+
 
 
 def engame(_screen,_taille_ecran,_textu_menu_bg):
@@ -103,3 +111,4 @@ def engame(_screen,_taille_ecran,_textu_menu_bg):
     fifth_sent = font.render("CHAUVET Gael", True, (255, 255, 255))
 
     _screen.blit(fst_sent, (_taille_ecran[0]/2 - 40 , 10))
+
