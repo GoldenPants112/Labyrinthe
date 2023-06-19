@@ -10,6 +10,7 @@ import random
 pygame.font.init()
 
 
+
 def nextRoom(_currentRoom):
     #prend la salel actuel et retourne une nouvelle salle construite
 
