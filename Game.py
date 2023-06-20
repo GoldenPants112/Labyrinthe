@@ -56,12 +56,14 @@ def startGame(_taille_ecran) :
     
     Game(_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
     
-# Create a font object
-font = pygame.font.Font("Font/Raleway-Regular.ttf", 22)
+
 
 def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
- #set the textures    
+    # Create a font object
+    font = pygame.font.Font("Font/Raleway-Regular.ttf", 22)
+
+    #set the textures    
     Captain_France_dos = pygame.image.load("Assets/Captain_France_dos.png")
     Captain_France = pygame.image.load("Assets/Captain_France.png")
     background_image = pygame.image.load("Assets/Dungeon_Texture.jpg")
@@ -107,13 +109,14 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
         #gets the time in seconds since the init
         time = pygame.time.get_ticks()
      
-
-
-
         #check si le joueur est à la sortie
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             #stocker le temps de chargemetn pour optimiser le temps
             time_chargement_start=time
+            if _current_R.roomId == 6 :
+                end_menu_bg = pygame.image.load("Buttons\Fond_menu.png")
+                menu.endgame(screen,_taille_ecran,end_menu_bg)
+
             _current_R  = nextRoom(_current_R)
             time = pygame.time.get_ticks()
             time_chargement_end=time
@@ -236,7 +239,7 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -1 )*_Size_Tile , (player_1.position[1]+2)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -1)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +2)*_Size_Tile ) ) 
             pygame.draw.rect(screen,color_brouillard,pygame.Rect( 0 , (player_1.position[1] -1 )*_Size_Tile , (player_1.position[0]-1)*_Size_Tile , _taille_ecran[0]  - (player_1.position[1]-1)*_Size_Tile ))
 
-        elif (_current_R.roomId == 3 or  _current_R.roomId == 4 or  _current_R.roomId == 5) and lighting!=1:       
+        elif (_current_R.roomId == 3 or  _current_R.roomId == 4 or  _current_R.roomId == 5 or _current_R.roomId == 6) and lighting!=1:       
             pygame.draw.rect(screen,color_brouillard, pygame.Rect(0 , 0 , (player_1.position[0] +3 )*_Size_Tile , (player_1.position[1] -2 )*_Size_Tile ))
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] +3)*_Size_Tile , 0 , _taille_ecran[0] - (player_1.position[0] +3)*_Size_Tile , (player_1.position[1]+3)*_Size_Tile  ) )
             pygame.draw.rect(screen,color_brouillard, pygame.Rect( (player_1.position[0] -2 )*_Size_Tile , (player_1.position[1]+3)*_Size_Tile , _taille_ecran[0]  - (player_1.position[0] -2)*_Size_Tile , _taille_ecran[0] - (player_1.position[1] +3)*_Size_Tile ) ) 
@@ -288,6 +291,10 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
             lvl5_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_4-time_chargement)/1000} ", True, (255, 255, 255))
             screen.blit(lvl5_time_text, (pixelSize[0] - 140, 10))
 
+        elif _current_R.roomId == 6:
+            lvl6_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_4-time_5-time_chargement)/1000} ", True, (255, 255, 255))
+            screen.blit(lvl6_time_text, (pixelSize[0] - 140, 10))
+
 
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
             #afiichage du temps requit pour finir une salle
@@ -316,6 +323,12 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
                 lvl5_accomplished_time = font.render(f"Time to complete level 5: {time_5/1000} ", True, (0, 255, 0))
                 screen.blit(lvl5_accomplished_time,((pixelSize[0] - 330, 50)))
 
+            if _current_R.roomId == 6:
+                time_6=time-time_pause-time_0-time_1-time_2-time_3-time_4-time_5
+                lvl6_accomplished_time = font.render(f"Time to complete level 6: {time_6/1000} ", True, (0, 255, 0))
+                screen.blit(lvl6_accomplished_time,((pixelSize[0] - 330, 50)))
+
+
 
 
 
@@ -334,9 +347,9 @@ def Game(_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
     # Quit Pygame
     pygame.quit()
 
-
 #Creation de la premiere fenetre
 pygame.init()
+
 
 #determination des dimentions de l'ecran
 pixelSize = [700,700]
@@ -345,10 +358,3 @@ screen = pygame.display.set_mode(pixelSize)
 
 #debut de la partie
 Game = startGame(pixelSize)
-
-
-
-
-
-
-    

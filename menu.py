@@ -71,18 +71,18 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
     
     #on définie les positions des membres du menu
     pause_menu_pos = []
-    pause_menu_pos.append( ((_taille_ecran[0]/2)-(pause_menu_size[0]/2 -70))/2)
+    pause_menu_pos.append( ((_taille_ecran[0]/2)-(pause_menu_size[0]/2)))
     pause_menu_pos.append( (_taille_ecran[1]/2)-(pause_menu_size[1]/2) )
 
     resume_button_pos = []
-    resume_button_pos.append(_taille_ecran[0]/2-resume_button_size[0]/2 ) 
-    resume_button_pos.append((_taille_ecran[1]/2)-(pause_menu_size[1]))
+    resume_button_pos.append(_taille_ecran[0]/2-resume_button_size[0]/2) 
+    resume_button_pos.append((_taille_ecran[1]/2)-resume_button_size[1]/2 - pause_menu_size[1]/3)
 
     _textu_resume_button =  pygame.transform.scale(_textu_resume_button,( resume_button_size[0] , resume_button_size[1] ))
-    _textu_pause_bg = pygame.transform.scale(_textu_pause_bg,( 400 , 400 ) )
+    _textu_pause_bg = pygame.transform.scale(_textu_pause_bg,( pause_menu_size[0] , pause_menu_size[1] ) )
 
     _screen.blit(_textu_pause_bg , ( pause_menu_pos[0] , pause_menu_pos[1] ))
-    _screen.blit(_textu_resume_button, ( pause_menu_pos[0] +10 , resume_button_pos[1] ))
+    _screen.blit(_textu_resume_button, ( resume_button_pos[0] , resume_button_pos[1] ))
 
     checker = 1
     
@@ -102,22 +102,29 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
         pygame.display.update()
 
 
-def engame(_screen,_taille_ecran,_textu_menu_bg):
+def endgame(_screen,_taille_ecran,_textu_menu_bg):
     _textu_menu_bg =  pygame.transform.scale(_textu_menu_bg,(_taille_ecran[0] , _taille_ecran[1] ) )
     _screen.blit(_textu_menu_bg,(0,0))
      
-    font = font = pygame.font.Font("Font/Raleway-Regular.ttf", 20)
+    font = font = pygame.font.Font("Font/Raleway-Regular.ttf", 25)
      
     fst_sent = font.render("Félicitation vous avez fini le jeu !", True, (255, 255, 255))
     snd_sent = font.render("Merci d'avoir jouer à cette petite démo sympathique", True, (255, 255, 255))
     thd_sent = font.render("Ce jeu vous a été proposé par :", True, (255, 255, 255))
     fourth_sent = font.render("BABA Hicham", True, (255, 255, 255))
-    fifth_sent = font.render("CHAUVET Gael", True, (255, 255, 255))
+    fifth_sent = font.render("CHAUVET Gaël", True, (255, 255, 255))
 
-    _screen.blit(fst_sent, (_taille_ecran[0]/2 - 40 , 10))
-    _screen.blit(snd_sent, (_taille_ecran[0]/2 - 20 , 10))
-    _screen.blit(thd_sent, (_taille_ecran[0]/2 - 0 , 10))
-    _screen.blit(fourth_sent, (_taille_ecran[0]/2 +20 , 10))
-    _screen.blit(fifth_sent, (_taille_ecran[0]/2 +40 , 10))
-  
+    _screen.blit(fst_sent, (_taille_ecran[0]/2 -200 , 30+200))
+    _screen.blit(snd_sent, (_taille_ecran[0]/2 -300 , 60+200))
+    _screen.blit(thd_sent, (_taille_ecran[0]/2-200 , 90+200))
+    _screen.blit(fourth_sent, (_taille_ecran[0]/2 -100 , 120+200))
+    _screen.blit(fifth_sent, (_taille_ecran[0]/2 -100 , 150+200))
 
+    checker = 1
+    while checker == 1 :
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP :
+                pygame.quit()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        pygame.display.update()

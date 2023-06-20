@@ -14,93 +14,36 @@ class Room :
         
         if (self.roomId == 1):
             f = open("Salle1.txt")
-            tempMap = []
-            i = 0
-            for line in f.readlines():
-                line=line.strip("\n")
-                tempMap.append([])
-                for c in line:
-                    tempMap[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
-            i = 0
-            for i in range(len(tempMap[0])) :
-                self.map.append([])
-                for j in range(len(tempMap[1])) :
-                    self.map[i].append(tempMap[j][i]) 
-            self.size=len(self.map[0])
 
-
-        if (self.roomId == 2):
+        elif (self.roomId == 2):
             f = open("Salle2.txt")
-            tempMap = []
-            i = 0
-            for line in f.readlines():
-                line=line.strip("\n")
-                tempMap.append([])
-                for c in line:
-                    tempMap[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
-            i = 0
-            for i in range(len(tempMap[0])) :
-                self.map.append([])
-                for j in range(len(tempMap[1])) :
-                    self.map[i].append(tempMap[j][i]) 
-            self.size=len(self.map[0])
 
-
-        if (self.roomId == 3):
+        elif (self.roomId == 3):
             f = open("Salle3.txt")
-            tempMap = []
-            i = 0
-            for line in f.readlines():
-                line=line.strip("\n")
-                tempMap.append([])
-                for c in line:
-                    tempMap[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
-            i = 0
-            for i in range(len(tempMap[0])) :
-                self.map.append([])
-                for j in range(len(tempMap[1])) :
-                    self.map[i].append(tempMap[j][i]) 
-            self.size=len(self.map[0])
 
-
-        if (self.roomId == 4):
+        elif (self.roomId == 4):
             f = open("Salle4.txt")
-            tempMap = []
-            i = 0
-            for line in f.readlines():
-                line=line.strip("\n")
-                tempMap.append([])
-                for c in line:
-                    tempMap[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
-            i = 0
-            for i in range(len(tempMap[0])) :
-                self.map.append([])
-                for j in range(len(tempMap[1])) :
-                    self.map[i].append(tempMap[j][i]) 
-            self.size=len(self.map[0])
+            
+        elif (self.roomId == 5):
+            f = open("Salle5.txt") 
+        
+        elif(self.roomId == 6):
+            f = open ("Salle6.txt")
 
-        if (self.roomId == 5):
-            f = open("Salle5.txt")
-            tempMap = []
-            i = 0
-            for line in f.readlines():
-                line=line.strip("\n")
-                tempMap.append([])
-                for c in line:
-                    tempMap[i].append((Class_Tiles.Tiles(int(c))))
-                i = i + 1 
-            i = 0
-            for i in range(len(tempMap[0])) :
-                self.map.append([])
-                for j in range(len(tempMap[1])) :
-                    self.map[i].append(tempMap[j][i]) 
-            self.size=len(self.map[0])    
-
-
+        tempMap = []
+        i = 0
+        for line in f.readlines():
+            line=line.strip("\n")
+            tempMap.append([])
+            for c in line:
+                tempMap[i].append((Class_Tiles.Tiles(int(c))))
+            i = i + 1 
+        i = 0
+        for i in range(len(tempMap[0])) :
+            self.map.append([])
+            for j in range(len(tempMap[1])) :
+                self.map[i].append(tempMap[j][i]) 
+        self.size=len(self.map[0])
 
 
 
