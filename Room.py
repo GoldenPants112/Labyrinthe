@@ -1,4 +1,4 @@
-import Class_Tiles
+import Tiles
 
 
 class Room : 
@@ -12,23 +12,8 @@ class Room :
         #création des tiles, avec des conditions lignes par lignes (le j)
             #Rappel : 0 = sol // 1 = mur // 3 = entrée // 4 = sortie
         
-        if (self.roomId == 1):
-            f = open("Salle1.txt")
-
-        elif (self.roomId == 2):
-            f = open("Salle2.txt")
-
-        elif (self.roomId == 3):
-            f = open("Salle3.txt")
-
-        elif (self.roomId == 4):
-            f = open("Salle4.txt")
-            
-        elif (self.roomId == 5):
-            f = open("Salle5.txt") 
-        
-        elif(self.roomId == 6):
-            f = open ("Salle6.txt")
+   
+        f = open(f"Salle{_Id}.txt")
 
         tempMap = []
         i = 0
@@ -36,7 +21,7 @@ class Room :
             line=line.strip("\n")
             tempMap.append([])
             for c in line:
-                tempMap[i].append((Class_Tiles.Tiles(int(c))))
+                tempMap[i].append((Tiles.Tiles(int(c))))
             i = i + 1 
         i = 0
         for i in range(len(tempMap[0])) :
