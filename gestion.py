@@ -52,13 +52,13 @@ def startGame(_screen,_taille_ecran) :
     
     menu.main_menu(_screen,_taille_ecran,play_button,menu_bg)
     
-    Game(_screen,_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
+    game(_screen,_taille_ecran,player_1,clock,FPS,running,current_R,Size_Tile)
 
 
 
 
 
-def Game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
+def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile) :
 
     # Create a font object
     font = pygame.font.Font("Font/Raleway-Regular.ttf", 22)
@@ -252,21 +252,22 @@ def Game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
         curseur=pygame.cursors.Cursor((0,0),curseur_surface)
         pygame.mouse.set_cursor(curseur)
             
-            
-        if pygame.mouse.get_pressed()[0] == 1 :
-            mouse_pos = pygame.mouse.get_pos()
-            #verfie si la souris est a la position du bouton pause
-            for event in pygame.event.get():
-             if event.type == pygame.MOUSEBUTTONUP :
-                    if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
-                        if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
-                            time_pause_start = time
-                            menu.pause_menu(_screen,_taille_ecran,resume_button,pause_bg)
-                            time = pygame.time.get_ticks()
-                            time_pause_end=time
-                            time_pause = time_pause_end-time_pause_start+time_pause
-                    
         _screen.blit(pause_button,(30,30))
+            
+     
+        mouse_pos = pygame.mouse.get_pos()
+        #verfie si la souris est a la position du bouton pause
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP :
+                if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
+                    if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
+                        time_pause_start = time
+                        menu.pause_menu(_screen,_taille_ecran,resume_button,pause_bg)
+                        time = pygame.time.get_ticks()
+                        time_pause_end=time
+                        time_pause = time_pause_end-time_pause_start+time_pause
+                    
+        
 
 
 
@@ -275,27 +276,27 @@ def Game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
             lv1_time_text = font.render(f"Time : {(time-time_pause-time_0)/1000} ", True, (255, 255, 255))
 
             # Blit the rendered text onto the _screen
-            _screen.blit(lv1_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lv1_time_text, (_taille_ecran[0] - 140, 10))
 
         elif _current_R.roomId == 2 :
             lvl2_time_text = font.render(f"Time : {(time-time_pause-time_0 - time_1-time_chargement)/1000} ", True, (255, 255, 255))
-            _screen.blit(lvl2_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lvl2_time_text, (_taille_ecran[0] - 140, 10))
 
         elif _current_R.roomId == 3:
             lvl3_time_text = font.render(f"Time : {(time -time_pause-time_0-time_1-time_2-time_chargement)/1000} ", True, (255, 255, 255))
-            _screen.blit(lvl3_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lvl3_time_text, (_taille_ecran[0] - 140, 10))
 
         elif _current_R.roomId == 4:
             lvl4_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_chargement)/1000} ", True, (255, 255, 255))
-            _screen.blit(lvl4_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lvl4_time_text, (_taille_ecran[0] - 140, 10))
 
         elif _current_R.roomId == 5:
             lvl5_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_4-time_chargement)/1000} ", True, (255, 255, 255))
-            _screen.blit(lvl5_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lvl5_time_text, (_taille_ecran[0] - 140, 10))
 
         elif _current_R.roomId == 6:
             lvl6_time_text = font.render(f"Time : {(time-time_pause-time_0-time_1-time_2-time_3-time_4-time_5-time_chargement)/1000} ", True, (255, 255, 255))
-            _screen.blit(lvl6_time_text, (pixelSize[0] - 140, 10))
+            _screen.blit(lvl6_time_text, (_taille_ecran[0] - 140, 10))
 
 
         if _current_R.map[player_1.position[0]][player_1.position[1]].type == 4 :
@@ -303,32 +304,32 @@ def Game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
             if _current_R.roomId == 1:
                 time_1=time-time_pause-time_0
                 lvl1_accomplished_time = font.render(f"Time to complete level 1: {time_1/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl1_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl1_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
             if _current_R.roomId == 2:
                 time_2=time-time_pause-time_0-time_1
                 lvl2_accomplished_time = font.render(f"Time to complete level 2: {time_2/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl2_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl2_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
             if _current_R.roomId == 3:
                 time_3=time-time_pause-time_0-time_1-time_2
                 lvl3_accomplished_time = font.render(f"Time to complete level 3: {time_3/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl3_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl3_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
             if _current_R.roomId == 4:
                 time_4=time-time_pause-time_0-time_1-time_2-time_3
                 lvl4_accomplished_time = font.render(f"Time to complete level 4: {time_4/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl4_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl4_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
             if _current_R.roomId == 5:
                 time_5=time-time_pause-time_0-time_1-time_2-time_3-time_4
                 lvl5_accomplished_time = font.render(f"Time to complete level 5: {time_5/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl5_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl5_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
             if _current_R.roomId == 6:
                 time_6=time-time_pause-time_0-time_1-time_2-time_3-time_4-time_5
                 lvl6_accomplished_time = font.render(f"Time to complete level 6: {time_6/1000} ", True, (0, 255, 0))
-                _screen.blit(lvl6_accomplished_time,((pixelSize[0] - 330, 50)))
+                _screen.blit(lvl6_accomplished_time,((_taille_ecran[0] - 330, 50)))
 
         # Update the entire display
         pygame.display.flip()

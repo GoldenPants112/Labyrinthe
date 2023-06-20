@@ -9,10 +9,10 @@ pygame.init()
 pygame.font.init()
 
 #determination des dimentions de l'ecran
-pixelSize = [700,700]
+resolution = [700,700]
 
 #Creation de l'ecran
-screen = pygame.display.set_mode(pixelSize)
+screen = pygame.display.set_mode(resolution)
 
 #debut de la partie
-Game = gestion.startGame(screen,pixelSize)
+Game = gestion.startGame(screen,resolution)

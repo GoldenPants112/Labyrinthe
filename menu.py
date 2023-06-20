@@ -63,7 +63,7 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
     #on définie les dimensions des membres du menu
     pause_menu_size = []
     pause_menu_size.append( _taille_ecran[0]*1/3)
-    pause_menu_size.append( _taille_ecran[1]*2/3)
+    pause_menu_size.append( _taille_ecran[1]*1/3)
 
     resume_button_size = []
     resume_button_size.append(60)
