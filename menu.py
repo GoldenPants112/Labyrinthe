@@ -72,7 +72,7 @@ def pause_menu(_screen,_taille_ecran,_textu_resume_button,_textu_pause_bg) :
     #on définie les positions des membres du menu
     pause_menu_pos = []
     pause_menu_pos.append( ((_taille_ecran[0]/2)-(pause_menu_size[0]/2 -70))/2)
-    pause_menu_pos.append( (_taille_ecran[0]/2)-(pause_menu_size[1]/2) )
+    pause_menu_pos.append( (_taille_ecran[1]/2)-(pause_menu_size[1]/2) )
 
     resume_button_pos = []
     resume_button_pos.append(_taille_ecran[0]/2-resume_button_size[0]/2 ) 
@@ -115,4 +115,9 @@ def engame(_screen,_taille_ecran,_textu_menu_bg):
     fifth_sent = font.render("CHAUVET Gael", True, (255, 255, 255))
 
     _screen.blit(fst_sent, (_taille_ecran[0]/2 - 40 , 10))
+    _screen.blit(snd_sent, (_taille_ecran[0]/2 - 20 , 10))
+    _screen.blit(thd_sent, (_taille_ecran[0]/2 - 0 , 10))
+    _screen.blit(fourth_sent, (_taille_ecran[0]/2 +20 , 10))
+    _screen.blit(fifth_sent, (_taille_ecran[0]/2 +40 , 10))
+  
 
