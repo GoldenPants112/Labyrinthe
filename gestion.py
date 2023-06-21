@@ -148,21 +148,12 @@ def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
         #récupère la taille d'une des textures (pour les colisions)
         character_width, character_height = character.get_size()
 
-        #affiche la salle
-        _current_R.__repr__(_screen,_Size_Tile)
        
         #if X is pressed then close the window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 _running = False
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    time_pause_start = time
-                    menu.pause_menu(_screen,_taille_ecran,resume_button,pause_bg)
-                    time = pygame.time.get_ticks()
-                    time_pause_end=time
-                    time_pause = time_pause_end-time_pause_start+time_pause
 
             #Handle keyboard events
             if event.type == pygame.KEYDOWN:
@@ -184,6 +175,13 @@ def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
                     move_down = False
                 elif event.key == pygame.K_d:
                     move_right = False
+
+            if (event.type == pygame.MOUSEBUTTONUP and mouse_pos[0] > 30 and mouse_pos[0] < 60 and mouse_pos[1] > 30 and mouse_pos[1] < 60) or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
+                        time_pause_start = time
+                        menu.pause_menu(_screen,_taille_ecran,resume_button,pause_bg)
+                        time = pygame.time.get_ticks()
+                        time_pause_end=time
+                        time_pause = time_pause_end-time_pause_start+time_pause
 
         # Update character position and set oirentation flags, based on movement flags and the type of the next tile
         if move_up and player_1.position[1] > 0 and _current_R.map[player_1.position[0]][player_1.position[1]-1].type != 1:
@@ -230,6 +228,9 @@ def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
 
         #tonnaire qui permets au joueur de voir la salle en entier pour un image
         lighting=random.randint(0,200)
+
+             #affiche la salle
+        _current_R.__repr__(_screen,_Size_Tile)
         
         #pygame.draw.rect( ecran , couleur , Pygame.Rect( x , y , largeur , hauteur ))  -- les coord x et y étants les coordonées du coins en haut à gauche du rectangle.
         #affichage de la tialle du brouillard en fonciton de l'iD de la salle
@@ -255,17 +256,7 @@ def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
         _screen.blit(pause_button,(30,30))
             
      
-        mouse_pos = pygame.mouse.get_pos()
-        #verfie si la souris est a la position du bouton pause
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP :
-                if mouse_pos[0] > 30 and mouse_pos[0] < 60 :
-                    if mouse_pos[1] > 30 and mouse_pos[1] < 60 :
-                        time_pause_start = time
-                        menu.pause_menu(_screen,_taille_ecran,resume_button,pause_bg)
-                        time = pygame.time.get_ticks()
-                        time_pause_end=time
-                        time_pause = time_pause_end-time_pause_start+time_pause
+    
                     
         
 
@@ -333,10 +324,17 @@ def game(_screen,_taille_ecran,player_1,clock,FPS,_running,_current_R,_Size_Tile
 
         # Update the entire display
         pygame.display.flip()
+        #verfie si la souris est a la position du bouton pause
+        #for event in pygame.event.get():
+            
+       
+       
 
         # Update the _screen
         pygame.display.update()
 
+        mouse_pos = pygame.mouse.get_pos()
+       
         # Delay to control the frame rate
         clock.tick(FPS)
     # Quit Pygame
